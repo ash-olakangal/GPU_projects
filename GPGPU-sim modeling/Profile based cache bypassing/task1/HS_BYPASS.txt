@@ -1,0 +1,2887 @@
+Accel-Sim [build accelsim-commit-9be0e3c_modified_0.0_26-02-04-01-45-14]
+
+        *** GPGPU-Sim Simulator Version 4.2.0  [build gpgpu-sim_git-commit-6c3cf4ff_modified_0.0] ***
+
+
+GPGPU-Sim: Configuration options:
+
+-save_embedded_ptx                      0 # saves ptx files embedded in binary as <n>.ptx
+-keep                                   0 # keep intermediate files created by GPGPU-Sim when interfacing with external programs
+-gpgpu_ptx_save_converted_ptxplus                    0 # Saved converted ptxplus to a file
+-gpgpu_occupancy_sm_number                   86 # The SM number to pass to ptxas when getting register usage for computing GPU occupancy. This parameter is required in the config.
+-ptx_opcode_latency_int           4,4,4,4,21 # Opcode latencies for integers <ADD,MAX,MUL,MAD,DIV,SHFL>Default 1,1,19,25,145,32
+-ptx_opcode_latency_fp           4,4,4,4,39 # Opcode latencies for single precision floating points <ADD,MAX,MUL,MAD,DIV>Default 1,1,1,1,30
+-ptx_opcode_latency_dp      64,64,64,64,330 # Opcode latencies for double precision floating points <ADD,MAX,MUL,MAD,DIV>Default 8,8,8,8,335
+-ptx_opcode_latency_sfu                   21 # Opcode latencies for SFU instructionsDefault 8
+-ptx_opcode_latency_tesnor                   64 # Opcode latencies for Tensor instructionsDefault 64
+-ptx_opcode_initiation_int            2,2,2,2,2 # Opcode initiation intervals for integers <ADD,MAX,MUL,MAD,DIV,SHFL>Default 1,1,4,4,32,4
+-ptx_opcode_initiation_fp            1,1,1,1,2 # Opcode initiation intervals for single precision floating points <ADD,MAX,MUL,MAD,DIV>Default 1,1,1,1,5
+-ptx_opcode_initiation_dp      64,64,64,64,130 # Opcode initiation intervals for double precision floating points <ADD,MAX,MUL,MAD,DIV>Default 8,8,8,8,130
+-ptx_opcode_initiation_sfu                    8 # Opcode initiation intervals for sfu instructionsDefault 8
+-ptx_opcode_initiation_tensor                   64 # Opcode initiation intervals for tensor instructionsDefault 64
+-cdp_latency         7200,8000,100,12000,1600 # CDP API latency <cudaStreamCreateWithFlags, cudaGetParameterBufferV2_init_perWarp, cudaGetParameterBufferV2_perKernel, cudaLaunchDeviceV2_init_perWarp, cudaLaunchDevicV2_perKernel>Default 7200,8000,100,12000,1600
+-network_mode                           2 # Interconnection network mode
+-inter_config_file                   mesh # Interconnection network config file
+-icnt_in_buffer_limit                  512 # in_buffer_limit
+-icnt_out_buffer_limit                  512 # out_buffer_limit
+-icnt_subnets                           2 # subnets
+-icnt_arbiter_algo                      1 # arbiter_algo
+-icnt_verbose                           0 # inct_verbose
+-icnt_grant_cycles                      1 # grant_cycles
+-gpgpu_ptx_use_cuobjdump                    1 # Use cuobjdump to extract ptx and sass from binaries
+-gpgpu_experimental_lib_support                    0 # Try to extract code from cuda libraries [Broken because of unknown cudaGetExportTable]
+-checkpoint_option                      0 #  checkpointing flag (0 = no checkpoint)
+-checkpoint_kernel                      1 #  checkpointing during execution of which kernel (1- 1st kernel)
+-checkpoint_CTA                         0 #  checkpointing after # of CTA (< less than total CTA)
+-resume_option                          0 #  resume flag (0 = no resume)
+-resume_kernel                          0 #  Resume from which kernel (1= 1st kernel)
+-resume_CTA                             0 #  resume from which CTA 
+-checkpoint_CTA_t                       0 #  resume from which CTA 
+-checkpoint_insn_Y                      0 #  resume from which CTA 
+-gpgpu_ptx_convert_to_ptxplus                    0 # Convert SASS (native ISA) to ptxplus and run ptxplus
+-gpgpu_ptx_force_max_capability                   86 # Force maximum compute capability
+-gpgpu_ptx_inst_debug_to_file                    0 # Dump executed instructions' debug information to file
+-gpgpu_ptx_inst_debug_file       inst_debug.txt # Executed instructions' debug output file
+-gpgpu_ptx_inst_debug_thread_uid                    1 # Thread UID for executed instructions' debug output
+-gpgpu_simd_model                       1 # 1 = post-dominator
+-gpgpu_shader_core_pipeline              1536:32 # shader core pipeline config, i.e., {<nthread>:<warpsize>}
+-gpgpu_tex_cache:l1  N:4:128:256,L:R:m:N:L,T:512:8,128:2 # per-shader L1 texture cache  (READ-ONLY) config  {<nsets>:<bsize>:<assoc>,<rep>:<wr>:<alloc>:<wr_alloc>,<mshr>:<N>:<merge>,<mq>:<rf>}
+-gpgpu_const_cache:l1 N:128:64:8,L:R:f:N:L,S:2:64,4 # per-shader L1 constant memory cache  (READ-ONLY) config  {<nsets>:<bsize>:<assoc>,<rep>:<wr>:<alloc>:<wr_alloc>,<mshr>:<N>:<merge>,<mq>} 
+-gpgpu_cache:il1     N:64:128:16,L:R:f:N:L,S:2:48,4 # shader L1 instruction cache config  {<sector?>:<nsets>:<bsize>:<assoc>,<rep>:<wr>:<alloc>:<wr_alloc>:<set_index_fn>,<mshr>:<N>:<merge>,<mq>} 
+-gpgpu_cache:dl1     N:32:128:4,L:L:m:N:H,S:64:8,8 # per-shader L1 data cache config  {<sector?>:<nsets>:<bsize>:<assoc>,<rep>:<wr>:<alloc>:<wr_alloc>:<set_index_fn>,<mshr>:<N>:<merge>,<mq>:<fifo_entry>,<data_port_width> | none}
+-gpgpu_l1_cache_write_ratio                    0 # L1D write ratio
+-gpgpu_l1_banks                         1 # The number of L1 cache banks
+-gpgpu_l1_banks_byte_interleaving                   32 # l1 banks byte interleaving granularity
+-gpgpu_l1_banks_hashing_function                    0 # l1 banks hashing function
+-gpgpu_l1_latency                      35 # L1 Hit Latency
+-gpgpu_smem_latency                    29 # smem Latency
+-gpgpu_cache:dl1PrefL1                 none # per-shader L1 data cache config  {<sector?>:<nsets>:<bsize>:<assoc>,<rep>:<wr>:<alloc>:<wr_alloc>:<set_index_fn>,<mshr>:<N>:<merge>,<mq>:<fifo_entry>,<data_port_width> | none}
+-gpgpu_cache:dl1PrefShared                 none # per-shader L1 data cache config  {<sector?>:<nsets>:<bsize>:<assoc>,<rep>:<wr>:<alloc>:<wr_alloc>:<set_index_fn>,<mshr>:<N>:<merge>,<mq>:<fifo_entry>,<data_port_width> | none}
+-gpgpu_gmem_skip_L1D                    1 # global memory access skip L1D cache (implements -Xptxas -dlcm=cg, default=no skip)
+-gpgpu_perfect_mem                      0 # enable perfect memory mode (no cache miss)
+-n_regfile_gating_group                    4 # group of lanes that should be read/written together)
+-gpgpu_clock_gated_reg_file                    0 # enable clock gated reg file for power calculations
+-gpgpu_clock_gated_lanes                    0 # enable clock gated lanes for power calculations
+-gpgpu_shader_registers                65536 # Number of registers per shader core. Limits number of concurrent CTAs. (default 8192)
+-gpgpu_registers_per_block                65536 # Maximum number of registers per CTA. (default 8192)
+-gpgpu_ignore_resources_limitation                    0 # gpgpu_ignore_resources_limitation (default 0)
+-gpgpu_shader_cta                       8 # Maximum number of concurrent CTAs in shader (default 32)
+-gpgpu_num_cta_barriers                   16 # Maximum number of named barriers per CTA (default 16)
+-gpgpu_n_clusters                      15 # number of processing clusters
+-gpgpu_n_cores_per_cluster                    1 # number of simd cores per cluster
+-gpgpu_n_cluster_ejection_buffer_size                   32 # number of packets in ejection buffer
+-gpgpu_n_ldst_response_buffer_size                    2 # number of response packets in ld/st unit ejection buffer
+-gpgpu_shmem_per_block                49152 # Size of shared memory per thread block or CTA (default 48kB)
+-gpgpu_shmem_size                  102400 # Size of shared memory per shader core (default 16kB)
+-gpgpu_shmem_option                     0 # Option list of shared memory sizes
+-gpgpu_unified_l1d_size                    0 # Size of unified data cache(L1D + shared memory) in KB
+-gpgpu_adaptive_cache_config                    0 # adaptive_cache_config
+-gpgpu_shmem_sizeDefault               102400 # Size of shared memory per shader core (default 16kB)
+-gpgpu_shmem_size_PrefL1                16384 # Size of shared memory per shader core (default 16kB)
+-gpgpu_shmem_size_PrefShared                16384 # Size of shared memory per shader core (default 16kB)
+-gpgpu_shmem_num_banks                   32 # Number of banks in the shared memory in each shader core (default 16)
+-gpgpu_shmem_limited_broadcast                    0 # Limit shared memory to do one broadcast per cycle (default on)
+-gpgpu_shmem_warp_parts                    1 # Number of portions a warp is divided into for shared memory bank conflict check 
+-gpgpu_mem_unit_ports                    1 # The number of memory transactions allowed per core cycle
+-gpgpu_shmem_warp_parts                    1 # Number of portions a warp is divided into for shared memory bank conflict check 
+-gpgpu_warpdistro_shader                   -1 # Specify which shader core to collect the warp size distribution from
+-gpgpu_warp_issue_shader                    0 # Specify which shader core to collect the warp issue distribution from
+-gpgpu_local_mem_map                    1 # Mapping from local memory space address to simulated GPU physical address space (default = enabled)
+-gpgpu_num_reg_banks                    8 # Number of register banks (default = 8)
+-gpgpu_reg_bank_use_warp_id                    0 # Use warp ID in mapping registers to banks (default = off)
+-gpgpu_sub_core_model                    1 # Sub Core Volta/Pascal model (default = off)
+-gpgpu_enable_specialized_operand_collector                    0 # enable_specialized_operand_collector
+-gpgpu_operand_collector_num_units_sp                    4 # number of collector units (default = 4)
+-gpgpu_operand_collector_num_units_dp                    0 # number of collector units (default = 0)
+-gpgpu_operand_collector_num_units_sfu                    4 # number of collector units (default = 4)
+-gpgpu_operand_collector_num_units_int                    0 # number of collector units (default = 0)
+-gpgpu_operand_collector_num_units_tensor_core                    4 # number of collector units (default = 4)
+-gpgpu_operand_collector_num_units_mem                    2 # number of collector units (default = 2)
+-gpgpu_operand_collector_num_units_gen                    8 # number of collector units (default = 0)
+-gpgpu_operand_collector_num_in_ports_sp                    1 # number of collector unit in ports (default = 1)
+-gpgpu_operand_collector_num_in_ports_dp                    0 # number of collector unit in ports (default = 0)
+-gpgpu_operand_collector_num_in_ports_sfu                    1 # number of collector unit in ports (default = 1)
+-gpgpu_operand_collector_num_in_ports_int                    0 # number of collector unit in ports (default = 0)
+-gpgpu_operand_collector_num_in_ports_tensor_core                    1 # number of collector unit in ports (default = 1)
+-gpgpu_operand_collector_num_in_ports_mem                    1 # number of collector unit in ports (default = 1)
+-gpgpu_operand_collector_num_in_ports_gen                    8 # number of collector unit in ports (default = 0)
+-gpgpu_operand_collector_num_out_ports_sp                    1 # number of collector unit in ports (default = 1)
+-gpgpu_operand_collector_num_out_ports_dp                    0 # number of collector unit in ports (default = 0)
+-gpgpu_operand_collector_num_out_ports_sfu                    1 # number of collector unit in ports (default = 1)
+-gpgpu_operand_collector_num_out_ports_int                    0 # number of collector unit in ports (default = 0)
+-gpgpu_operand_collector_num_out_ports_tensor_core                    1 # number of collector unit in ports (default = 1)
+-gpgpu_operand_collector_num_out_ports_mem                    1 # number of collector unit in ports (default = 1)
+-gpgpu_operand_collector_num_out_ports_gen                    8 # number of collector unit in ports (default = 0)
+-gpgpu_coalesce_arch                   86 # Coalescing arch (GT200 = 13, Fermi = 20)
+-gpgpu_num_sched_per_core                    4 # Number of warp schedulers per core
+-gpgpu_max_insn_issue_per_warp                    1 # Max number of instructions that can be issued per warp in one cycle by scheduler (either 1 or 2)
+-gpgpu_dual_issue_diff_exec_units                    1 # should dual issue use two different execution unit resources (Default = 1)
+-gpgpu_simt_core_sim_order                    1 # Select the simulation order of cores in a cluster (0=Fix, 1=Round-Robin)
+-gpgpu_pipeline_widths 4,4,4,4,4,4,4,4,4,4,8,4,4 # Pipeline widths ID_OC_SP,ID_OC_DP,ID_OC_INT,ID_OC_SFU,ID_OC_MEM,OC_EX_SP,OC_EX_DP,OC_EX_INT,OC_EX_SFU,OC_EX_MEM,EX_WB,ID_OC_TENSOR_CORE,OC_EX_TENSOR_CORE
+-gpgpu_tensor_core_avail                    1 # Tensor Core Available (default=0)
+-gpgpu_num_sp_units                     4 # Number of SP units (default=1)
+-gpgpu_num_dp_units                     4 # Number of DP units (default=0)
+-gpgpu_num_int_units                    4 # Number of INT units (default=0)
+-gpgpu_num_sfu_units                    4 # Number of SF units (default=1)
+-gpgpu_num_tensor_core_units                    4 # Number of tensor_core units (default=1)
+-gpgpu_num_mem_units                    1 # Number if ldst units (default=1) WARNING: not hooked up to anything
+-gpgpu_scheduler                      lrr # Scheduler configuration: < lrr | gto | two_level_active > If two_level_active:<num_active_warps>:<inner_prioritization>:<outer_prioritization>For complete list of prioritization values see shader.h enum scheduler_prioritization_typeDefault: gto
+-gpgpu_concurrent_kernel_sm                    0 # Support concurrent kernels on a SM (default = disabled)
+-gpgpu_perfect_inst_const_cache                    1 # perfect inst and const cache mode, so all inst and const hits in the cache(default = disabled)
+-gpgpu_inst_fetch_throughput                    4 # the number of fetched intruction per warp each cycle
+-gpgpu_reg_file_port_throughput                    2 # the number ports of the register file
+-specialized_unit_1         1,4,4,4,4,BRA # specialized unit config {<enabled>,<num_units>:<latency>:<initiation>,<ID_OC_SPEC>:<OC_EX_SPEC>,<NAME>}
+-specialized_unit_2       1,4,200,4,4,TEX # specialized unit config {<enabled>,<num_units>:<latency>:<initiation>,<ID_OC_SPEC>:<OC_EX_SPEC>,<NAME>}
+-specialized_unit_3     1,4,32,4,4,TENSOR # specialized unit config {<enabled>,<num_units>:<latency>:<initiation>,<ID_OC_SPEC>:<OC_EX_SPEC>,<NAME>}
+-specialized_unit_4         1,4,4,4,4,UDP # specialized unit config {<enabled>,<num_units>:<latency>:<initiation>,<ID_OC_SPEC>:<OC_EX_SPEC>,<NAME>}
+-specialized_unit_5         0,4,4,4,4,BRA # specialized unit config {<enabled>,<num_units>:<latency>:<initiation>,<ID_OC_SPEC>:<OC_EX_SPEC>,<NAME>}
+-specialized_unit_6         0,4,4,4,4,BRA # specialized unit config {<enabled>,<num_units>:<latency>:<initiation>,<ID_OC_SPEC>:<OC_EX_SPEC>,<NAME>}
+-specialized_unit_7         0,4,4,4,4,BRA # specialized unit config {<enabled>,<num_units>:<latency>:<initiation>,<ID_OC_SPEC>:<OC_EX_SPEC>,<NAME>}
+-specialized_unit_8         0,4,4,4,4,BRA # specialized unit config {<enabled>,<num_units>:<latency>:<initiation>,<ID_OC_SPEC>:<OC_EX_SPEC>,<NAME>}
+-gpgpu_perf_sim_memcpy                    1 # Fill the L2 cache on memcpy
+-gpgpu_simple_dram_model                    0 # simple_dram_model with fixed latency and BW
+-gpgpu_dram_scheduler                    1 # 0 = fifo, 1 = FR-FCFS (defaul)
+-gpgpu_dram_partition_queues          64:64:64:64 # i2$:$2d:d2$:$2i
+-l2_ideal                               0 # Use a ideal L2 cache that always hit
+-gpgpu_cache:dl2     S:64:128:16,L:B:m:L:P,A:192:4,32:0,32 # unified banked L2 data cache config  {<sector?>:<nsets>:<bsize>:<assoc>,<rep>:<wr>:<alloc>:<wr_alloc>:<set_index_fn>,<mshr>:<N>:<merge>,<mq>:<fifo_entry>,<data_port_width>
+-gpgpu_cache:dl2_texture_only                    0 # L2 cache used for texture only
+-gpgpu_n_mem                            6 # number of memory modules (e.g. memory controllers) in gpu
+-gpgpu_n_sub_partition_per_mchannel                    2 # number of memory subpartition in each memory module
+-gpgpu_n_mem_per_ctrlr                    2 # number of memory chips per memory controller
+-gpgpu_memlatency_stat                   14 # track and display latency statistics 0x2 enables MC, 0x4 enables queue logs
+-gpgpu_frfcfs_dram_sched_queue_size                   64 # 0 = unlimited (default); # entries per chip
+-gpgpu_dram_return_queue_size                  116 # 0 = unlimited (default); # entries per chip
+-gpgpu_dram_buswidth                    4 # default = 4 bytes (8 bytes per cycle at DDR)
+-gpgpu_dram_burst_length                    8 # Burst length of each DRAM request (default = 4 data bus cycle)
+-dram_data_command_freq_ratio                    4 # Frequency ratio between DRAM data bus and command bus (default = 2 times, i.e. DDR)
+-gpgpu_dram_timing_opt nbk=16:CCD=2:RRD=6:RCD=12:RAS=28:RP=12:RC=40: CL=12:WL=4:CDLR=5:WR=12:nbkgrp=4:CCDL=3:RTPL=2 # DRAM timing parameters = {nbk:tCCD:tRRD:tRCD:tRAS:tRP:tRC:CL:WL:tCDLR:tWR:nbkgrp:tCCDL:tRTPL}
+-gpgpu_l2_rop_latency                  120 # ROP queue latency (default 85)
+-dram_latency                         100 # DRAM latency (default 30)
+-dram_dual_bus_interface                    0 # dual_bus_interface (default = 0) 
+-dram_bnk_indexing_policy                    0 # dram_bnk_indexing_policy (0 = normal indexing, 1 = Xoring with the higher bits) (Default = 0)
+-dram_bnkgrp_indexing_policy                    1 # dram_bnkgrp_indexing_policy (0 = take higher bits, 1 = take lower bits) (Default = 0)
+-dram_seperate_write_queue_enable                    0 # Seperate_Write_Queue_Enable
+-dram_write_queue_size             32:28:16 # Write_Queue_Size
+-dram_elimnate_rw_turnaround                    0 # elimnate_rw_turnaround i.e set tWTR and tRTW = 0
+-icnt_flit_size                        40 # icnt_flit_size
+-SST_mode                               0 # SST mode
+-gpgpu_mem_addr_mapping dramid@8;00000000.00000000.00000000.00000000.0000RRRR.RRRRRRRR.BBBCCCCB.CCSSSSSS # mapping memory address to dram model {dramid@<start bit>;<memory address map>}
+-gpgpu_mem_addr_test                    0 # run sweep test to check address mapping for aliased address
+-gpgpu_mem_address_mask                    1 # 0 = old addressing mask, 1 = new addressing mask, 2 = new add. mask + flipped bank sel and chip sel bits
+-gpgpu_memory_partition_indexing                    2 # 0 = no indexing, 1 = bitwise xoring, 2 = IPoly, 3 = custom indexing
+-accelwattch_xml_file accelwattch_sass_sim.xml # AccelWattch XML file
+-power_simulation_enabled                    0 # Turn on power simulator (1=On, 0=Off)
+-power_per_cycle_dump                    0 # Dump detailed power output each cycle
+-hw_perf_file_name            hw_perf.csv # Hardware Performance Statistics file
+-hw_perf_bench_name                       # Kernel Name in Hardware Performance Statistics file
+-power_simulation_mode                    0 # Switch performance counter input for power simulation (0=Sim, 1=HW, 2=HW-Sim Hybrid)
+-dvfs_enabled                           0 # Turn on DVFS for power model
+-aggregate_power_stats                    0 # Accumulate power across all kernels
+-accelwattch_hybrid_perfsim_L1_RH                    0 # Get L1 Read Hits for Accelwattch-Hybrid from Accel-Sim
+-accelwattch_hybrid_perfsim_L1_RM                    0 # Get L1 Read Misses for Accelwattch-Hybrid from Accel-Sim
+-accelwattch_hybrid_perfsim_L1_WH                    0 # Get L1 Write Hits for Accelwattch-Hybrid from Accel-Sim
+-accelwattch_hybrid_perfsim_L1_WM                    0 # Get L1 Write Misses for Accelwattch-Hybrid from Accel-Sim
+-accelwattch_hybrid_perfsim_L2_RH                    0 # Get L2 Read Hits for Accelwattch-Hybrid from Accel-Sim
+-accelwattch_hybrid_perfsim_L2_RM                    0 # Get L2 Read Misses for Accelwattch-Hybrid from Accel-Sim
+-accelwattch_hybrid_perfsim_L2_WH                    0 # Get L2 Write Hits for Accelwattch-Hybrid from Accel-Sim
+-accelwattch_hybrid_perfsim_L2_WM                    0 # Get L2 Write Misses for Accelwattch-Hybrid from Accel-Sim
+-accelwattch_hybrid_perfsim_CC_ACC                    0 # Get Constant Cache Acesses for Accelwattch-Hybrid from Accel-Sim
+-accelwattch_hybrid_perfsim_SHARED_ACC                    0 # Get Shared Memory Acesses for Accelwattch-Hybrid from Accel-Sim
+-accelwattch_hybrid_perfsim_DRAM_RD                    0 # Get DRAM Reads for Accelwattch-Hybrid from Accel-Sim
+-accelwattch_hybrid_perfsim_DRAM_WR                    0 # Get DRAM Writes for Accelwattch-Hybrid from Accel-Sim
+-accelwattch_hybrid_perfsim_NOC                    0 # Get Interconnect Acesses for Accelwattch-Hybrid from Accel-Sim
+-accelwattch_hybrid_perfsim_PIPE_DUTY                    0 # Get Pipeline Duty Cycle Acesses for Accelwattch-Hybrid from Accel-Sim
+-accelwattch_hybrid_perfsim_NUM_SM_IDLE                    0 # Get Number of Idle SMs for Accelwattch-Hybrid from Accel-Sim
+-accelwattch_hybrid_perfsim_CYCLES                    0 # Get Executed Cycles for Accelwattch-Hybrid from Accel-Sim
+-accelwattch_hybrid_perfsim_VOLTAGE                    0 # Get Chip Voltage for Accelwattch-Hybrid from Accel-Sim
+-power_trace_enabled                    0 # produce a file for the power trace (1=On, 0=Off)
+-power_trace_zlevel                     6 # Compression level of the power trace output log (0=no comp, 9=highest)
+-steady_power_levels_enabled                    0 # produce a file for the steady power levels (1=On, 0=Off)
+-steady_state_definition                  8:4 # allowed deviation:number of samples
+-gpgpu_max_cycle                        0 # terminates gpu simulation early (0 = no limit)
+-gpgpu_max_insn                 100000000 # terminates gpu simulation early (0 = no limit)
+-gpgpu_max_cta                          0 # terminates gpu simulation early (0 = no limit)
+-gpgpu_max_completed_cta                    0 # terminates gpu simulation early (0 = no limit)
+-gpgpu_runtime_stat                   500 # display runtime statistics such as dram utilization {<freq>:<flag>}
+-liveness_message_freq                    1 # Minimum number of seconds between simulation liveness messages (0 = always print)
+-gpgpu_compute_capability_major                    8 # Major compute capability version number
+-gpgpu_compute_capability_minor                    6 # Minor compute capability version number
+-gpgpu_flush_l1_cache                    1 # Flush L1 cache at the end of each kernel call
+-gpgpu_flush_l2_cache                    0 # Flush L2 cache at the end of each kernel call
+-gpgpu_deadlock_detect                    1 # Stop the simulation at deadlock (1=on (default), 0=off)
+-gpgpu_ptx_instruction_classification                    0 # if enabled will classify ptx instruction types per kernel (Max 255 kernels now)
+-gpgpu_ptx_sim_mode                     0 # Select between Performance (default) or Functional simulation (1)
+-gpgpu_clock_domains 1132:1132:1132:3500.5 # Clock Domain Frequencies in MhZ {<Core Clock>:<ICNT Clock>:<L2 Clock>:<DRAM Clock>}
+-gpgpu_max_concurrent_kernel                  128 # maximum kernels that can run concurrently on GPU, set this value according to max resident grids for your compute capability
+-gpgpu_cflog_interval                    0 # Interval between each snapshot in control flow logger
+-visualizer_enabled                     0 # Turn on visualizer output (1=On, 0=Off)
+-visualizer_outputfile                 NULL # Specifies the output log file for visualizer
+-visualizer_zlevel                      6 # Compression level of the visualizer output log (0=no comp, 9=highest)
+-gpgpu_stack_size_limit                 1024 # GPU thread stack size
+-gpgpu_heap_size_limit              8388608 # GPU malloc heap size 
+-gpgpu_runtime_sync_depth_limit                    2 # GPU device runtime synchronize depth
+-gpgpu_runtime_pending_launch_count_limit                 2048 # GPU device runtime pending launch count
+-trace_enabled                          0 # Turn on traces
+-trace_components                    none # comma seperated list of traces to enable. Complete list found in trace_streams.tup. Default none
+-trace_sampling_core                    0 # The core which is printed using CORE_DPRINTF. Default 0
+-trace_sampling_memory_partition                   -1 # The memory partition which is printed using MEMPART_DPRINTF. Default -1 (i.e. all)
+-enable_ptx_file_line_stats                    1 # Turn on PTX source line statistic profiling. (1 = On)
+-ptx_line_stats_filename gpgpu_inst_stats.txt # Output file for PTX source line statistics.
+-gpgpu_kernel_launch_latency                 5000 # Kernel launch latency in cycles. Default: 0
+-gpgpu_cdp_enabled                      0 # Turn on CDP
+-gpgpu_TB_launch_latency                    0 # thread block launch latency in cycles. Default: 0
+-trace               ./util/tracer_nvbit/HS_traces/kernelslist.g # traces kernel filetraces kernel file directory
+-trace_opcode_latency_initiation_int                  2,2 # Opcode latencies and initiation for integers in trace driven mode <latency,initiation>
+-trace_opcode_latency_initiation_sp                  2,1 # Opcode latencies and initiation for sp in trace driven mode <latency,initiation>
+-trace_opcode_latency_initiation_dp                64,64 # Opcode latencies and initiation for dp in trace driven mode <latency,initiation>
+-trace_opcode_latency_initiation_sfu                 21,8 # Opcode latencies and initiation for sfu in trace driven mode <latency,initiation>
+-trace_opcode_latency_initiation_tensor                32,32 # Opcode latencies and initiation for tensor in trace driven mode <latency,initiation>
+-trace_opcode_latency_initiation_spec_op_1                  4,4 # specialized unit config <latency,initiation>
+-trace_opcode_latency_initiation_spec_op_2                200,4 # specialized unit config <latency,initiation>
+-trace_opcode_latency_initiation_spec_op_3                32,32 # specialized unit config <latency,initiation>
+-trace_opcode_latency_initiation_spec_op_4                  4,1 # specialized unit config <latency,initiation>
+-trace_opcode_latency_initiation_spec_op_5                  4,4 # specialized unit config <latency,initiation>
+-trace_opcode_latency_initiation_spec_op_6                  4,4 # specialized unit config <latency,initiation>
+-trace_opcode_latency_initiation_spec_op_7                  4,4 # specialized unit config <latency,initiation>
+-trace_opcode_latency_initiation_spec_op_8                  4,4 # specialized unit config <latency,initiation>
+DRAM Timing Options:
+nbk                                    16 # number of banks
+CCD                                     2 # column to column delay
+RRD                                     6 # minimal delay between activation of rows in different banks
+RCD                                    12 # row to column delay
+RAS                                    28 # time needed to activate row
+RP                                     12 # time needed to precharge (deactivate) row
+RC                                     40 # row cycle time
+CDLR                                    5 # switching from write to read (changes tWTR)
+WR                                     12 # last data-in to row precharge
+CL                                     12 # CAS latency
+WL                                      4 # Write latency
+nbkgrp                                  4 # number of bank groups
+CCDL                                    3 # column to column delay between accesses to different bank groups
+RTPL                                    2 # read to precharge delay between accesses to different bank groups
+Total number of memory sub partition = 12
+addr_dec_mask[CHIP]  = 0000000000000000 	high:64 low:0
+addr_dec_mask[BK]    = 000000000000e100 	high:16 low:8
+addr_dec_mask[ROW]   = 000000000fff0000 	high:28 low:16
+addr_dec_mask[COL]   = 0000000000001eff 	high:13 low:0
+addr_dec_mask[BURST] = 000000000000003f 	high:6 low:0
+sub_partition_id_mask = 0000000000000100
+GPGPU-Sim uArch: clock freqs: 1132000000.000000:1132000000.000000:1132000000.000000:3500500000.000000
+GPGPU-Sim uArch: clock periods: 0.00000000088339222615:0.00000000088339222615:0.00000000088339222615:0.00000000028567347522
+*** Initializing Memory Statistics ***
+GPGPU-Sim uArch: performance model initialization complete.
+launching memcpy command : MemcpyHtoD,0x000079bdc7400000,1048576
+launching memcpy command : MemcpyHtoD,0x000079bdc7600000,1048576
+Processing kernel ./util/tracer_nvbit/HS_traces/kernel-1-ctx_0x2ff016d0.traceg.xz
+-kernel name = _Z14calculate_tempiPfS_S_iiiiffffff
+-kernel id = 1
+-grid dim = (43,43,1)
+-block dim = (16,16,1)
+-shmem = 3072
+-nregs = 34
+-binary version = 86
+-cuda stream id = 0
+-shmem base_addr = 0x000079bde1000000
+-local mem base_addr = 0x000079bddf000000
+-nvbit version = 1.7.6
+-accelsim tracer version = 5
+-enable lineinfo = 0
+Header info loaded for kernel command : ./util/tracer_nvbit/HS_traces/kernel-1-ctx_0x2ff016d0.traceg.xz
+launching kernel name: _Z14calculate_tempiPfS_S_iiiiffffff uid: 1 cuda_stream_id: 0
+GPGPU-Sim uArch: Shader 0 bind to kernel 1 '_Z14calculate_tempiPfS_S_iiiiffffff'
+GPGPU-Sim uArch: CTA/core = 6, limited by: threads
+thread block = 0,0,0
+GPGPU-Sim uArch: Shader 1 bind to kernel 1 '_Z14calculate_tempiPfS_S_iiiiffffff'
+thread block = 1,0,0
+GPGPU-Sim uArch: Shader 2 bind to kernel 1 '_Z14calculate_tempiPfS_S_iiiiffffff'
+thread block = 2,0,0
+GPGPU-Sim uArch: Shader 3 bind to kernel 1 '_Z14calculate_tempiPfS_S_iiiiffffff'
+thread block = 3,0,0
+GPGPU-Sim uArch: Shader 4 bind to kernel 1 '_Z14calculate_tempiPfS_S_iiiiffffff'
+thread block = 4,0,0
+GPGPU-Sim uArch: Shader 5 bind to kernel 1 '_Z14calculate_tempiPfS_S_iiiiffffff'
+thread block = 5,0,0
+GPGPU-Sim uArch: Shader 6 bind to kernel 1 '_Z14calculate_tempiPfS_S_iiiiffffff'
+thread block = 6,0,0
+GPGPU-Sim uArch: Shader 7 bind to kernel 1 '_Z14calculate_tempiPfS_S_iiiiffffff'
+thread block = 7,0,0
+GPGPU-Sim uArch: Shader 8 bind to kernel 1 '_Z14calculate_tempiPfS_S_iiiiffffff'
+thread block = 8,0,0
+GPGPU-Sim uArch: Shader 9 bind to kernel 1 '_Z14calculate_tempiPfS_S_iiiiffffff'
+thread block = 9,0,0
+GPGPU-Sim uArch: Shader 10 bind to kernel 1 '_Z14calculate_tempiPfS_S_iiiiffffff'
+thread block = 10,0,0
+GPGPU-Sim uArch: Shader 11 bind to kernel 1 '_Z14calculate_tempiPfS_S_iiiiffffff'
+thread block = 11,0,0
+GPGPU-Sim uArch: Shader 12 bind to kernel 1 '_Z14calculate_tempiPfS_S_iiiiffffff'
+thread block = 12,0,0
+GPGPU-Sim uArch: Shader 13 bind to kernel 1 '_Z14calculate_tempiPfS_S_iiiiffffff'
+thread block = 13,0,0
+GPGPU-Sim uArch: Shader 14 bind to kernel 1 '_Z14calculate_tempiPfS_S_iiiiffffff'
+thread block = 14,0,0
+thread block = 15,0,0
+thread block = 16,0,0
+thread block = 17,0,0
+thread block = 18,0,0
+thread block = 19,0,0
+thread block = 20,0,0
+thread block = 21,0,0
+thread block = 22,0,0
+thread block = 23,0,0
+thread block = 24,0,0
+thread block = 25,0,0
+thread block = 26,0,0
+thread block = 27,0,0
+thread block = 28,0,0
+thread block = 29,0,0
+thread block = 30,0,0
+thread block = 31,0,0
+thread block = 32,0,0
+thread block = 33,0,0
+thread block = 34,0,0
+thread block = 35,0,0
+thread block = 36,0,0
+thread block = 37,0,0
+thread block = 38,0,0
+thread block = 39,0,0
+thread block = 40,0,0
+thread block = 41,0,0
+thread block = 42,0,0
+thread block = 0,1,0
+thread block = 1,1,0
+thread block = 2,1,0
+thread block = 3,1,0
+thread block = 4,1,0
+thread block = 5,1,0
+thread block = 6,1,0
+thread block = 7,1,0
+thread block = 8,1,0
+thread block = 9,1,0
+thread block = 10,1,0
+thread block = 11,1,0
+thread block = 12,1,0
+thread block = 13,1,0
+thread block = 14,1,0
+thread block = 15,1,0
+thread block = 16,1,0
+thread block = 17,1,0
+thread block = 18,1,0
+thread block = 19,1,0
+thread block = 20,1,0
+thread block = 21,1,0
+thread block = 22,1,0
+thread block = 23,1,0
+thread block = 24,1,0
+thread block = 25,1,0
+thread block = 26,1,0
+thread block = 27,1,0
+thread block = 28,1,0
+thread block = 29,1,0
+thread block = 30,1,0
+thread block = 31,1,0
+thread block = 32,1,0
+thread block = 33,1,0
+thread block = 34,1,0
+thread block = 35,1,0
+thread block = 36,1,0
+thread block = 37,1,0
+thread block = 38,1,0
+thread block = 39,1,0
+thread block = 40,1,0
+thread block = 41,1,0
+thread block = 42,1,0
+thread block = 0,2,0
+thread block = 1,2,0
+thread block = 2,2,0
+thread block = 3,2,0
+thread block = 4,2,0
+thread block = 5,2,0
+thread block = 6,2,0
+thread block = 7,2,0
+thread block = 8,2,0
+thread block = 9,2,0
+thread block = 10,2,0
+thread block = 11,2,0
+thread block = 12,2,0
+thread block = 13,2,0
+thread block = 14,2,0
+thread block = 15,2,0
+thread block = 16,2,0
+thread block = 17,2,0
+thread block = 18,2,0
+thread block = 19,2,0
+thread block = 20,2,0
+thread block = 21,2,0
+thread block = 22,2,0
+thread block = 23,2,0
+thread block = 24,2,0
+thread block = 25,2,0
+thread block = 26,2,0
+thread block = 27,2,0
+thread block = 28,2,0
+thread block = 29,2,0
+thread block = 30,2,0
+thread block = 31,2,0
+thread block = 32,2,0
+thread block = 33,2,0
+thread block = 34,2,0
+thread block = 35,2,0
+thread block = 36,2,0
+thread block = 37,2,0
+thread block = 38,2,0
+thread block = 39,2,0
+thread block = 40,2,0
+thread block = 41,2,0
+thread block = 42,2,0
+thread block = 0,3,0
+thread block = 1,3,0
+thread block = 2,3,0
+thread block = 3,3,0
+thread block = 4,3,0
+thread block = 5,3,0
+thread block = 6,3,0
+thread block = 7,3,0
+thread block = 8,3,0
+thread block = 9,3,0
+thread block = 10,3,0
+thread block = 11,3,0
+thread block = 12,3,0
+thread block = 13,3,0
+thread block = 14,3,0
+thread block = 15,3,0
+thread block = 16,3,0
+thread block = 17,3,0
+thread block = 18,3,0
+thread block = 19,3,0
+thread block = 20,3,0
+thread block = 21,3,0
+thread block = 22,3,0
+thread block = 23,3,0
+thread block = 24,3,0
+thread block = 25,3,0
+thread block = 26,3,0
+thread block = 27,3,0
+thread block = 28,3,0
+thread block = 29,3,0
+thread block = 30,3,0
+thread block = 31,3,0
+thread block = 32,3,0
+thread block = 33,3,0
+thread block = 34,3,0
+thread block = 35,3,0
+thread block = 36,3,0
+thread block = 37,3,0
+thread block = 38,3,0
+thread block = 39,3,0
+thread block = 40,3,0
+thread block = 41,3,0
+thread block = 42,3,0
+thread block = 0,4,0
+thread block = 1,4,0
+thread block = 2,4,0
+thread block = 3,4,0
+thread block = 4,4,0
+thread block = 5,4,0
+thread block = 6,4,0
+thread block = 7,4,0
+thread block = 8,4,0
+thread block = 9,4,0
+thread block = 10,4,0
+thread block = 11,4,0
+thread block = 12,4,0
+thread block = 13,4,0
+thread block = 14,4,0
+thread block = 15,4,0
+thread block = 16,4,0
+thread block = 17,4,0
+thread block = 18,4,0
+thread block = 19,4,0
+thread block = 20,4,0
+thread block = 21,4,0
+thread block = 22,4,0
+thread block = 23,4,0
+thread block = 24,4,0
+thread block = 25,4,0
+thread block = 26,4,0
+thread block = 27,4,0
+thread block = 28,4,0
+thread block = 29,4,0
+thread block = 30,4,0
+thread block = 31,4,0
+thread block = 32,4,0
+thread block = 33,4,0
+thread block = 34,4,0
+thread block = 35,4,0
+thread block = 36,4,0
+thread block = 37,4,0
+thread block = 38,4,0
+thread block = 39,4,0
+thread block = 40,4,0
+thread block = 41,4,0
+thread block = 42,4,0
+thread block = 0,5,0
+thread block = 1,5,0
+thread block = 2,5,0
+thread block = 3,5,0
+thread block = 4,5,0
+thread block = 5,5,0
+thread block = 6,5,0
+thread block = 7,5,0
+thread block = 8,5,0
+thread block = 9,5,0
+thread block = 10,5,0
+thread block = 11,5,0
+thread block = 12,5,0
+thread block = 13,5,0
+thread block = 14,5,0
+thread block = 15,5,0
+thread block = 16,5,0
+thread block = 17,5,0
+thread block = 18,5,0
+thread block = 19,5,0
+thread block = 20,5,0
+thread block = 21,5,0
+thread block = 22,5,0
+thread block = 23,5,0
+thread block = 24,5,0
+thread block = 25,5,0
+thread block = 26,5,0
+thread block = 27,5,0
+thread block = 28,5,0
+thread block = 29,5,0
+thread block = 30,5,0
+thread block = 31,5,0
+thread block = 32,5,0
+thread block = 33,5,0
+thread block = 34,5,0
+thread block = 35,5,0
+thread block = 36,5,0
+thread block = 37,5,0
+thread block = 38,5,0
+thread block = 39,5,0
+thread block = 40,5,0
+thread block = 41,5,0
+thread block = 42,5,0
+thread block = 0,6,0
+thread block = 1,6,0
+thread block = 2,6,0
+thread block = 3,6,0
+thread block = 4,6,0
+thread block = 5,6,0
+thread block = 6,6,0
+thread block = 7,6,0
+thread block = 8,6,0
+thread block = 9,6,0
+thread block = 10,6,0
+thread block = 11,6,0
+thread block = 12,6,0
+thread block = 13,6,0
+thread block = 14,6,0
+thread block = 15,6,0
+thread block = 16,6,0
+thread block = 17,6,0
+thread block = 18,6,0
+thread block = 19,6,0
+thread block = 20,6,0
+thread block = 21,6,0
+thread block = 22,6,0
+thread block = 23,6,0
+thread block = 24,6,0
+thread block = 25,6,0
+thread block = 26,6,0
+thread block = 27,6,0
+thread block = 28,6,0
+thread block = 29,6,0
+thread block = 30,6,0
+thread block = 31,6,0
+thread block = 32,6,0
+thread block = 33,6,0
+thread block = 34,6,0
+thread block = 35,6,0
+thread block = 36,6,0
+thread block = 37,6,0
+thread block = 38,6,0
+thread block = 39,6,0
+thread block = 40,6,0
+thread block = 41,6,0
+thread block = 42,6,0
+thread block = 0,7,0
+thread block = 1,7,0
+thread block = 2,7,0
+thread block = 3,7,0
+thread block = 4,7,0
+thread block = 5,7,0
+thread block = 6,7,0
+thread block = 7,7,0
+thread block = 8,7,0
+thread block = 9,7,0
+thread block = 10,7,0
+thread block = 11,7,0
+thread block = 12,7,0
+thread block = 13,7,0
+thread block = 14,7,0
+thread block = 15,7,0
+thread block = 16,7,0
+thread block = 17,7,0
+thread block = 18,7,0
+thread block = 19,7,0
+thread block = 20,7,0
+thread block = 21,7,0
+thread block = 22,7,0
+thread block = 23,7,0
+thread block = 24,7,0
+thread block = 25,7,0
+thread block = 26,7,0
+thread block = 27,7,0
+thread block = 28,7,0
+thread block = 29,7,0
+thread block = 30,7,0
+thread block = 31,7,0
+thread block = 32,7,0
+thread block = 33,7,0
+thread block = 34,7,0
+thread block = 35,7,0
+thread block = 36,7,0
+thread block = 37,7,0
+thread block = 38,7,0
+thread block = 39,7,0
+thread block = 40,7,0
+thread block = 41,7,0
+thread block = 42,7,0
+thread block = 0,8,0
+thread block = 1,8,0
+thread block = 2,8,0
+thread block = 3,8,0
+thread block = 4,8,0
+thread block = 5,8,0
+thread block = 6,8,0
+thread block = 7,8,0
+thread block = 8,8,0
+thread block = 9,8,0
+thread block = 10,8,0
+thread block = 11,8,0
+thread block = 12,8,0
+thread block = 13,8,0
+thread block = 14,8,0
+thread block = 15,8,0
+thread block = 16,8,0
+thread block = 17,8,0
+thread block = 18,8,0
+thread block = 19,8,0
+thread block = 20,8,0
+thread block = 21,8,0
+thread block = 22,8,0
+thread block = 23,8,0
+thread block = 24,8,0
+thread block = 25,8,0
+thread block = 26,8,0
+thread block = 27,8,0
+thread block = 28,8,0
+thread block = 29,8,0
+thread block = 30,8,0
+thread block = 31,8,0
+thread block = 32,8,0
+thread block = 33,8,0
+thread block = 34,8,0
+thread block = 35,8,0
+thread block = 36,8,0
+thread block = 37,8,0
+thread block = 38,8,0
+thread block = 39,8,0
+thread block = 40,8,0
+thread block = 41,8,0
+thread block = 42,8,0
+thread block = 0,9,0
+thread block = 1,9,0
+thread block = 2,9,0
+thread block = 3,9,0
+thread block = 4,9,0
+thread block = 5,9,0
+thread block = 6,9,0
+thread block = 7,9,0
+thread block = 8,9,0
+thread block = 9,9,0
+thread block = 10,9,0
+thread block = 11,9,0
+thread block = 12,9,0
+thread block = 13,9,0
+thread block = 14,9,0
+thread block = 15,9,0
+thread block = 16,9,0
+thread block = 17,9,0
+thread block = 18,9,0
+thread block = 19,9,0
+thread block = 20,9,0
+thread block = 21,9,0
+thread block = 22,9,0
+thread block = 23,9,0
+thread block = 24,9,0
+thread block = 25,9,0
+thread block = 26,9,0
+thread block = 27,9,0
+thread block = 28,9,0
+thread block = 29,9,0
+thread block = 30,9,0
+thread block = 31,9,0
+thread block = 32,9,0
+thread block = 33,9,0
+thread block = 34,9,0
+thread block = 35,9,0
+thread block = 36,9,0
+thread block = 37,9,0
+thread block = 38,9,0
+thread block = 39,9,0
+thread block = 40,9,0
+thread block = 41,9,0
+thread block = 42,9,0
+thread block = 0,10,0
+thread block = 1,10,0
+thread block = 2,10,0
+thread block = 3,10,0
+thread block = 4,10,0
+thread block = 5,10,0
+thread block = 6,10,0
+thread block = 7,10,0
+thread block = 8,10,0
+thread block = 9,10,0
+thread block = 10,10,0
+thread block = 11,10,0
+thread block = 12,10,0
+thread block = 13,10,0
+thread block = 14,10,0
+thread block = 15,10,0
+thread block = 16,10,0
+thread block = 17,10,0
+thread block = 18,10,0
+thread block = 19,10,0
+thread block = 20,10,0
+thread block = 21,10,0
+thread block = 22,10,0
+thread block = 23,10,0
+thread block = 24,10,0
+thread block = 25,10,0
+thread block = 26,10,0
+thread block = 27,10,0
+thread block = 28,10,0
+thread block = 29,10,0
+thread block = 30,10,0
+thread block = 31,10,0
+thread block = 32,10,0
+thread block = 33,10,0
+thread block = 34,10,0
+thread block = 35,10,0
+thread block = 36,10,0
+thread block = 37,10,0
+thread block = 38,10,0
+thread block = 39,10,0
+thread block = 40,10,0
+thread block = 41,10,0
+thread block = 42,10,0
+thread block = 0,11,0
+thread block = 1,11,0
+thread block = 2,11,0
+thread block = 3,11,0
+thread block = 4,11,0
+thread block = 5,11,0
+thread block = 6,11,0
+thread block = 7,11,0
+thread block = 8,11,0
+thread block = 9,11,0
+thread block = 10,11,0
+thread block = 11,11,0
+thread block = 12,11,0
+thread block = 13,11,0
+thread block = 14,11,0
+thread block = 15,11,0
+thread block = 16,11,0
+thread block = 17,11,0
+thread block = 18,11,0
+thread block = 19,11,0
+thread block = 20,11,0
+thread block = 21,11,0
+thread block = 22,11,0
+thread block = 23,11,0
+thread block = 24,11,0
+thread block = 25,11,0
+thread block = 26,11,0
+thread block = 27,11,0
+thread block = 28,11,0
+thread block = 29,11,0
+thread block = 30,11,0
+thread block = 31,11,0
+thread block = 32,11,0
+thread block = 33,11,0
+thread block = 34,11,0
+thread block = 35,11,0
+thread block = 36,11,0
+thread block = 37,11,0
+thread block = 38,11,0
+thread block = 39,11,0
+thread block = 40,11,0
+thread block = 41,11,0
+thread block = 42,11,0
+thread block = 0,12,0
+thread block = 1,12,0
+thread block = 2,12,0
+thread block = 3,12,0
+thread block = 4,12,0
+thread block = 5,12,0
+thread block = 6,12,0
+thread block = 7,12,0
+thread block = 8,12,0
+thread block = 9,12,0
+thread block = 10,12,0
+thread block = 11,12,0
+thread block = 12,12,0
+thread block = 13,12,0
+thread block = 14,12,0
+thread block = 15,12,0
+thread block = 16,12,0
+thread block = 17,12,0
+thread block = 18,12,0
+thread block = 19,12,0
+thread block = 20,12,0
+thread block = 21,12,0
+thread block = 22,12,0
+thread block = 23,12,0
+thread block = 24,12,0
+thread block = 25,12,0
+thread block = 26,12,0
+thread block = 27,12,0
+thread block = 28,12,0
+thread block = 29,12,0
+thread block = 30,12,0
+thread block = 31,12,0
+thread block = 32,12,0
+thread block = 33,12,0
+thread block = 34,12,0
+thread block = 35,12,0
+thread block = 36,12,0
+thread block = 37,12,0
+thread block = 38,12,0
+thread block = 39,12,0
+thread block = 40,12,0
+thread block = 41,12,0
+thread block = 42,12,0
+thread block = 0,13,0
+thread block = 1,13,0
+thread block = 2,13,0
+thread block = 3,13,0
+thread block = 4,13,0
+thread block = 5,13,0
+thread block = 6,13,0
+thread block = 7,13,0
+thread block = 8,13,0
+thread block = 9,13,0
+thread block = 10,13,0
+thread block = 11,13,0
+thread block = 12,13,0
+thread block = 13,13,0
+thread block = 14,13,0
+thread block = 15,13,0
+thread block = 16,13,0
+thread block = 17,13,0
+thread block = 18,13,0
+thread block = 19,13,0
+thread block = 20,13,0
+thread block = 21,13,0
+thread block = 22,13,0
+thread block = 23,13,0
+thread block = 24,13,0
+thread block = 25,13,0
+thread block = 26,13,0
+thread block = 27,13,0
+thread block = 28,13,0
+thread block = 29,13,0
+thread block = 30,13,0
+thread block = 31,13,0
+thread block = 32,13,0
+thread block = 33,13,0
+thread block = 34,13,0
+thread block = 35,13,0
+thread block = 36,13,0
+thread block = 37,13,0
+thread block = 38,13,0
+thread block = 39,13,0
+thread block = 40,13,0
+thread block = 41,13,0
+thread block = 42,13,0
+thread block = 0,14,0
+thread block = 1,14,0
+thread block = 2,14,0
+thread block = 3,14,0
+thread block = 4,14,0
+thread block = 5,14,0
+thread block = 6,14,0
+thread block = 7,14,0
+thread block = 8,14,0
+thread block = 9,14,0
+thread block = 10,14,0
+thread block = 11,14,0
+thread block = 12,14,0
+thread block = 13,14,0
+thread block = 14,14,0
+thread block = 15,14,0
+thread block = 16,14,0
+thread block = 17,14,0
+thread block = 18,14,0
+thread block = 19,14,0
+thread block = 20,14,0
+thread block = 21,14,0
+thread block = 22,14,0
+thread block = 23,14,0
+thread block = 24,14,0
+thread block = 25,14,0
+thread block = 26,14,0
+thread block = 27,14,0
+thread block = 28,14,0
+thread block = 29,14,0
+thread block = 30,14,0
+thread block = 31,14,0
+thread block = 32,14,0
+thread block = 33,14,0
+thread block = 34,14,0
+thread block = 35,14,0
+thread block = 36,14,0
+thread block = 37,14,0
+thread block = 38,14,0
+thread block = 39,14,0
+thread block = 40,14,0
+thread block = 41,14,0
+thread block = 42,14,0
+thread block = 0,15,0
+thread block = 1,15,0
+thread block = 2,15,0
+thread block = 3,15,0
+thread block = 4,15,0
+thread block = 5,15,0
+thread block = 6,15,0
+thread block = 7,15,0
+thread block = 8,15,0
+thread block = 9,15,0
+thread block = 10,15,0
+thread block = 11,15,0
+thread block = 12,15,0
+thread block = 13,15,0
+thread block = 14,15,0
+thread block = 15,15,0
+thread block = 16,15,0
+thread block = 17,15,0
+thread block = 18,15,0
+thread block = 19,15,0
+thread block = 20,15,0
+thread block = 21,15,0
+thread block = 22,15,0
+thread block = 23,15,0
+thread block = 24,15,0
+thread block = 25,15,0
+thread block = 26,15,0
+thread block = 27,15,0
+thread block = 28,15,0
+thread block = 29,15,0
+thread block = 30,15,0
+thread block = 31,15,0
+thread block = 32,15,0
+thread block = 33,15,0
+thread block = 34,15,0
+thread block = 35,15,0
+thread block = 36,15,0
+thread block = 37,15,0
+thread block = 38,15,0
+thread block = 39,15,0
+thread block = 40,15,0
+thread block = 41,15,0
+thread block = 42,15,0
+thread block = 0,16,0
+thread block = 1,16,0
+thread block = 2,16,0
+thread block = 3,16,0
+thread block = 4,16,0
+thread block = 5,16,0
+thread block = 6,16,0
+thread block = 7,16,0
+thread block = 8,16,0
+thread block = 9,16,0
+thread block = 10,16,0
+thread block = 11,16,0
+thread block = 12,16,0
+thread block = 13,16,0
+thread block = 14,16,0
+thread block = 15,16,0
+thread block = 16,16,0
+thread block = 17,16,0
+thread block = 18,16,0
+thread block = 19,16,0
+thread block = 20,16,0
+thread block = 21,16,0
+thread block = 22,16,0
+thread block = 23,16,0
+thread block = 24,16,0
+thread block = 25,16,0
+thread block = 26,16,0
+thread block = 27,16,0
+thread block = 28,16,0
+thread block = 29,16,0
+thread block = 30,16,0
+thread block = 31,16,0
+thread block = 32,16,0
+thread block = 33,16,0
+thread block = 34,16,0
+thread block = 35,16,0
+thread block = 36,16,0
+thread block = 37,16,0
+thread block = 38,16,0
+thread block = 39,16,0
+thread block = 40,16,0
+thread block = 41,16,0
+thread block = 42,16,0
+thread block = 0,17,0
+thread block = 1,17,0
+thread block = 2,17,0
+thread block = 3,17,0
+thread block = 4,17,0
+thread block = 5,17,0
+thread block = 6,17,0
+thread block = 7,17,0
+thread block = 8,17,0
+thread block = 9,17,0
+thread block = 10,17,0
+thread block = 11,17,0
+thread block = 12,17,0
+thread block = 13,17,0
+thread block = 14,17,0
+thread block = 15,17,0
+thread block = 16,17,0
+thread block = 17,17,0
+thread block = 18,17,0
+thread block = 19,17,0
+thread block = 20,17,0
+thread block = 21,17,0
+thread block = 22,17,0
+thread block = 23,17,0
+thread block = 24,17,0
+thread block = 25,17,0
+thread block = 26,17,0
+thread block = 27,17,0
+thread block = 28,17,0
+thread block = 29,17,0
+thread block = 30,17,0
+thread block = 31,17,0
+thread block = 32,17,0
+thread block = 33,17,0
+thread block = 34,17,0
+thread block = 35,17,0
+thread block = 36,17,0
+thread block = 37,17,0
+thread block = 38,17,0
+thread block = 39,17,0
+thread block = 40,17,0
+thread block = 41,17,0
+thread block = 42,17,0
+thread block = 0,18,0
+thread block = 1,18,0
+thread block = 2,18,0
+thread block = 3,18,0
+thread block = 4,18,0
+thread block = 5,18,0
+thread block = 6,18,0
+thread block = 7,18,0
+thread block = 8,18,0
+thread block = 9,18,0
+thread block = 10,18,0
+thread block = 11,18,0
+thread block = 12,18,0
+thread block = 13,18,0
+thread block = 14,18,0
+thread block = 15,18,0
+thread block = 16,18,0
+thread block = 17,18,0
+thread block = 18,18,0
+thread block = 19,18,0
+thread block = 20,18,0
+thread block = 21,18,0
+thread block = 22,18,0
+thread block = 23,18,0
+thread block = 24,18,0
+thread block = 25,18,0
+thread block = 26,18,0
+thread block = 27,18,0
+thread block = 28,18,0
+thread block = 29,18,0
+thread block = 30,18,0
+thread block = 31,18,0
+thread block = 32,18,0
+thread block = 33,18,0
+thread block = 34,18,0
+thread block = 35,18,0
+thread block = 36,18,0
+thread block = 37,18,0
+thread block = 38,18,0
+thread block = 39,18,0
+thread block = 40,18,0
+thread block = 41,18,0
+thread block = 42,18,0
+thread block = 0,19,0
+thread block = 1,19,0
+thread block = 2,19,0
+thread block = 3,19,0
+thread block = 4,19,0
+thread block = 5,19,0
+thread block = 6,19,0
+thread block = 7,19,0
+thread block = 8,19,0
+thread block = 9,19,0
+thread block = 10,19,0
+thread block = 11,19,0
+thread block = 12,19,0
+thread block = 13,19,0
+thread block = 14,19,0
+thread block = 15,19,0
+thread block = 16,19,0
+thread block = 17,19,0
+thread block = 18,19,0
+thread block = 19,19,0
+thread block = 20,19,0
+thread block = 21,19,0
+thread block = 22,19,0
+thread block = 23,19,0
+thread block = 24,19,0
+thread block = 25,19,0
+thread block = 26,19,0
+thread block = 27,19,0
+thread block = 28,19,0
+thread block = 29,19,0
+thread block = 30,19,0
+thread block = 31,19,0
+thread block = 32,19,0
+thread block = 33,19,0
+thread block = 34,19,0
+thread block = 35,19,0
+thread block = 36,19,0
+thread block = 37,19,0
+thread block = 38,19,0
+thread block = 39,19,0
+thread block = 40,19,0
+thread block = 41,19,0
+thread block = 42,19,0
+thread block = 0,20,0
+thread block = 1,20,0
+thread block = 2,20,0
+thread block = 3,20,0
+thread block = 4,20,0
+thread block = 5,20,0
+thread block = 6,20,0
+thread block = 7,20,0
+thread block = 8,20,0
+thread block = 9,20,0
+thread block = 10,20,0
+thread block = 11,20,0
+thread block = 12,20,0
+thread block = 13,20,0
+thread block = 14,20,0
+thread block = 15,20,0
+thread block = 16,20,0
+thread block = 17,20,0
+thread block = 18,20,0
+thread block = 19,20,0
+thread block = 20,20,0
+thread block = 21,20,0
+thread block = 22,20,0
+thread block = 23,20,0
+thread block = 24,20,0
+thread block = 25,20,0
+thread block = 26,20,0
+thread block = 27,20,0
+thread block = 28,20,0
+thread block = 29,20,0
+thread block = 30,20,0
+thread block = 31,20,0
+thread block = 32,20,0
+thread block = 33,20,0
+thread block = 34,20,0
+thread block = 35,20,0
+thread block = 36,20,0
+thread block = 37,20,0
+thread block = 38,20,0
+thread block = 39,20,0
+thread block = 40,20,0
+thread block = 41,20,0
+thread block = 42,20,0
+thread block = 0,21,0
+thread block = 1,21,0
+thread block = 2,21,0
+thread block = 3,21,0
+thread block = 4,21,0
+thread block = 5,21,0
+thread block = 6,21,0
+thread block = 7,21,0
+thread block = 8,21,0
+thread block = 9,21,0
+thread block = 10,21,0
+thread block = 11,21,0
+thread block = 12,21,0
+thread block = 13,21,0
+thread block = 14,21,0
+thread block = 15,21,0
+thread block = 16,21,0
+thread block = 17,21,0
+thread block = 18,21,0
+thread block = 19,21,0
+thread block = 20,21,0
+thread block = 21,21,0
+thread block = 22,21,0
+thread block = 23,21,0
+thread block = 24,21,0
+thread block = 25,21,0
+thread block = 26,21,0
+thread block = 27,21,0
+thread block = 28,21,0
+thread block = 29,21,0
+thread block = 30,21,0
+thread block = 31,21,0
+thread block = 32,21,0
+thread block = 33,21,0
+thread block = 34,21,0
+thread block = 35,21,0
+thread block = 36,21,0
+thread block = 37,21,0
+thread block = 38,21,0
+thread block = 39,21,0
+thread block = 40,21,0
+thread block = 41,21,0
+thread block = 42,21,0
+thread block = 0,22,0
+thread block = 1,22,0
+thread block = 2,22,0
+thread block = 3,22,0
+thread block = 4,22,0
+thread block = 5,22,0
+thread block = 6,22,0
+thread block = 7,22,0
+thread block = 8,22,0
+thread block = 9,22,0
+thread block = 10,22,0
+thread block = 11,22,0
+thread block = 12,22,0
+thread block = 13,22,0
+thread block = 14,22,0
+thread block = 15,22,0
+thread block = 16,22,0
+thread block = 17,22,0
+thread block = 18,22,0
+thread block = 19,22,0
+thread block = 20,22,0
+thread block = 21,22,0
+thread block = 22,22,0
+thread block = 23,22,0
+thread block = 24,22,0
+thread block = 25,22,0
+thread block = 26,22,0
+thread block = 27,22,0
+thread block = 28,22,0
+thread block = 29,22,0
+thread block = 30,22,0
+thread block = 31,22,0
+thread block = 32,22,0
+thread block = 33,22,0
+thread block = 34,22,0
+thread block = 35,22,0
+thread block = 36,22,0
+thread block = 37,22,0
+thread block = 38,22,0
+thread block = 39,22,0
+thread block = 40,22,0
+thread block = 41,22,0
+thread block = 42,22,0
+thread block = 0,23,0
+thread block = 1,23,0
+thread block = 2,23,0
+thread block = 3,23,0
+thread block = 4,23,0
+thread block = 5,23,0
+thread block = 6,23,0
+thread block = 7,23,0
+thread block = 8,23,0
+thread block = 9,23,0
+thread block = 10,23,0
+thread block = 11,23,0
+thread block = 12,23,0
+thread block = 13,23,0
+thread block = 14,23,0
+thread block = 15,23,0
+thread block = 16,23,0
+thread block = 17,23,0
+thread block = 18,23,0
+thread block = 19,23,0
+thread block = 20,23,0
+thread block = 21,23,0
+thread block = 22,23,0
+thread block = 23,23,0
+thread block = 24,23,0
+thread block = 25,23,0
+thread block = 26,23,0
+thread block = 27,23,0
+thread block = 28,23,0
+thread block = 29,23,0
+thread block = 30,23,0
+thread block = 31,23,0
+thread block = 32,23,0
+thread block = 33,23,0
+thread block = 34,23,0
+thread block = 35,23,0
+thread block = 36,23,0
+thread block = 37,23,0
+thread block = 38,23,0
+thread block = 39,23,0
+thread block = 40,23,0
+thread block = 41,23,0
+thread block = 42,23,0
+thread block = 0,24,0
+thread block = 1,24,0
+thread block = 2,24,0
+thread block = 3,24,0
+thread block = 4,24,0
+thread block = 5,24,0
+thread block = 6,24,0
+thread block = 7,24,0
+thread block = 8,24,0
+thread block = 9,24,0
+thread block = 10,24,0
+thread block = 11,24,0
+thread block = 12,24,0
+thread block = 13,24,0
+thread block = 14,24,0
+thread block = 15,24,0
+thread block = 16,24,0
+thread block = 17,24,0
+thread block = 18,24,0
+thread block = 19,24,0
+thread block = 20,24,0
+thread block = 21,24,0
+thread block = 22,24,0
+thread block = 23,24,0
+thread block = 24,24,0
+thread block = 25,24,0
+thread block = 26,24,0
+thread block = 27,24,0
+thread block = 28,24,0
+thread block = 29,24,0
+thread block = 30,24,0
+thread block = 31,24,0
+thread block = 32,24,0
+thread block = 33,24,0
+thread block = 34,24,0
+thread block = 35,24,0
+thread block = 36,24,0
+thread block = 37,24,0
+thread block = 38,24,0
+thread block = 39,24,0
+thread block = 40,24,0
+thread block = 41,24,0
+thread block = 42,24,0
+thread block = 0,25,0
+thread block = 1,25,0
+thread block = 2,25,0
+thread block = 3,25,0
+thread block = 4,25,0
+thread block = 5,25,0
+thread block = 6,25,0
+thread block = 7,25,0
+thread block = 8,25,0
+thread block = 9,25,0
+thread block = 10,25,0
+thread block = 11,25,0
+thread block = 12,25,0
+thread block = 13,25,0
+thread block = 14,25,0
+thread block = 15,25,0
+thread block = 16,25,0
+thread block = 17,25,0
+thread block = 18,25,0
+thread block = 19,25,0
+thread block = 20,25,0
+thread block = 21,25,0
+thread block = 22,25,0
+thread block = 23,25,0
+thread block = 24,25,0
+thread block = 25,25,0
+thread block = 26,25,0
+thread block = 27,25,0
+thread block = 28,25,0
+thread block = 29,25,0
+thread block = 30,25,0
+thread block = 31,25,0
+thread block = 32,25,0
+thread block = 33,25,0
+thread block = 34,25,0
+thread block = 35,25,0
+thread block = 36,25,0
+thread block = 37,25,0
+thread block = 38,25,0
+thread block = 39,25,0
+thread block = 40,25,0
+thread block = 41,25,0
+thread block = 42,25,0
+thread block = 0,26,0
+thread block = 1,26,0
+thread block = 2,26,0
+thread block = 3,26,0
+thread block = 4,26,0
+thread block = 5,26,0
+thread block = 6,26,0
+thread block = 7,26,0
+thread block = 8,26,0
+thread block = 9,26,0
+thread block = 10,26,0
+thread block = 11,26,0
+thread block = 12,26,0
+thread block = 13,26,0
+thread block = 14,26,0
+thread block = 15,26,0
+thread block = 16,26,0
+thread block = 17,26,0
+thread block = 18,26,0
+thread block = 19,26,0
+thread block = 20,26,0
+thread block = 21,26,0
+thread block = 22,26,0
+thread block = 23,26,0
+thread block = 24,26,0
+thread block = 25,26,0
+thread block = 26,26,0
+thread block = 27,26,0
+thread block = 28,26,0
+thread block = 29,26,0
+thread block = 30,26,0
+thread block = 31,26,0
+thread block = 32,26,0
+thread block = 33,26,0
+thread block = 34,26,0
+thread block = 35,26,0
+thread block = 36,26,0
+thread block = 37,26,0
+thread block = 38,26,0
+thread block = 39,26,0
+thread block = 40,26,0
+thread block = 41,26,0
+thread block = 42,26,0
+thread block = 0,27,0
+thread block = 1,27,0
+thread block = 2,27,0
+thread block = 3,27,0
+thread block = 4,27,0
+thread block = 5,27,0
+thread block = 6,27,0
+thread block = 7,27,0
+thread block = 8,27,0
+thread block = 9,27,0
+thread block = 10,27,0
+thread block = 11,27,0
+thread block = 12,27,0
+thread block = 13,27,0
+thread block = 14,27,0
+thread block = 15,27,0
+thread block = 16,27,0
+thread block = 17,27,0
+thread block = 18,27,0
+thread block = 19,27,0
+thread block = 20,27,0
+thread block = 21,27,0
+thread block = 22,27,0
+thread block = 23,27,0
+thread block = 24,27,0
+thread block = 25,27,0
+thread block = 26,27,0
+thread block = 27,27,0
+thread block = 28,27,0
+thread block = 29,27,0
+thread block = 30,27,0
+thread block = 31,27,0
+thread block = 32,27,0
+thread block = 33,27,0
+thread block = 34,27,0
+thread block = 35,27,0
+thread block = 36,27,0
+thread block = 37,27,0
+thread block = 38,27,0
+thread block = 39,27,0
+thread block = 40,27,0
+thread block = 41,27,0
+thread block = 42,27,0
+thread block = 0,28,0
+thread block = 1,28,0
+thread block = 2,28,0
+thread block = 3,28,0
+thread block = 4,28,0
+thread block = 5,28,0
+thread block = 6,28,0
+thread block = 7,28,0
+thread block = 8,28,0
+thread block = 9,28,0
+thread block = 10,28,0
+thread block = 11,28,0
+thread block = 12,28,0
+thread block = 13,28,0
+thread block = 14,28,0
+thread block = 15,28,0
+thread block = 16,28,0
+thread block = 17,28,0
+thread block = 18,28,0
+thread block = 19,28,0
+thread block = 20,28,0
+thread block = 21,28,0
+thread block = 22,28,0
+thread block = 23,28,0
+thread block = 24,28,0
+thread block = 25,28,0
+thread block = 26,28,0
+thread block = 27,28,0
+thread block = 28,28,0
+thread block = 29,28,0
+thread block = 30,28,0
+thread block = 31,28,0
+thread block = 32,28,0
+thread block = 33,28,0
+thread block = 34,28,0
+thread block = 35,28,0
+thread block = 36,28,0
+thread block = 37,28,0
+thread block = 38,28,0
+thread block = 39,28,0
+thread block = 40,28,0
+thread block = 41,28,0
+thread block = 42,28,0
+thread block = 0,29,0
+thread block = 1,29,0
+thread block = 2,29,0
+thread block = 3,29,0
+thread block = 4,29,0
+thread block = 5,29,0
+thread block = 6,29,0
+thread block = 7,29,0
+thread block = 8,29,0
+thread block = 9,29,0
+thread block = 10,29,0
+thread block = 11,29,0
+thread block = 12,29,0
+thread block = 13,29,0
+thread block = 14,29,0
+thread block = 15,29,0
+thread block = 16,29,0
+thread block = 17,29,0
+thread block = 18,29,0
+thread block = 19,29,0
+thread block = 20,29,0
+thread block = 21,29,0
+thread block = 22,29,0
+thread block = 23,29,0
+thread block = 24,29,0
+thread block = 25,29,0
+thread block = 26,29,0
+thread block = 27,29,0
+thread block = 28,29,0
+thread block = 29,29,0
+thread block = 30,29,0
+thread block = 31,29,0
+thread block = 32,29,0
+thread block = 33,29,0
+thread block = 34,29,0
+thread block = 35,29,0
+thread block = 36,29,0
+thread block = 37,29,0
+thread block = 38,29,0
+thread block = 39,29,0
+thread block = 40,29,0
+thread block = 41,29,0
+thread block = 42,29,0
+thread block = 0,30,0
+thread block = 1,30,0
+thread block = 2,30,0
+thread block = 3,30,0
+thread block = 4,30,0
+thread block = 5,30,0
+thread block = 6,30,0
+thread block = 7,30,0
+thread block = 8,30,0
+thread block = 9,30,0
+thread block = 10,30,0
+thread block = 11,30,0
+thread block = 12,30,0
+thread block = 13,30,0
+thread block = 14,30,0
+thread block = 15,30,0
+thread block = 16,30,0
+thread block = 17,30,0
+thread block = 18,30,0
+thread block = 19,30,0
+thread block = 20,30,0
+thread block = 21,30,0
+thread block = 22,30,0
+thread block = 23,30,0
+thread block = 24,30,0
+thread block = 25,30,0
+thread block = 26,30,0
+thread block = 27,30,0
+thread block = 28,30,0
+thread block = 29,30,0
+thread block = 30,30,0
+thread block = 31,30,0
+thread block = 32,30,0
+thread block = 33,30,0
+thread block = 34,30,0
+thread block = 35,30,0
+thread block = 36,30,0
+thread block = 37,30,0
+thread block = 38,30,0
+thread block = 39,30,0
+thread block = 40,30,0
+thread block = 41,30,0
+thread block = 42,30,0
+thread block = 0,31,0
+thread block = 1,31,0
+thread block = 2,31,0
+thread block = 3,31,0
+thread block = 4,31,0
+thread block = 5,31,0
+thread block = 6,31,0
+thread block = 7,31,0
+thread block = 8,31,0
+thread block = 9,31,0
+thread block = 10,31,0
+thread block = 11,31,0
+thread block = 12,31,0
+thread block = 13,31,0
+thread block = 14,31,0
+thread block = 15,31,0
+thread block = 16,31,0
+thread block = 17,31,0
+thread block = 18,31,0
+thread block = 19,31,0
+thread block = 20,31,0
+thread block = 21,31,0
+thread block = 22,31,0
+thread block = 23,31,0
+thread block = 24,31,0
+thread block = 25,31,0
+thread block = 26,31,0
+thread block = 27,31,0
+thread block = 28,31,0
+thread block = 29,31,0
+thread block = 30,31,0
+thread block = 31,31,0
+thread block = 32,31,0
+thread block = 33,31,0
+thread block = 34,31,0
+thread block = 35,31,0
+thread block = 36,31,0
+thread block = 37,31,0
+thread block = 38,31,0
+thread block = 39,31,0
+thread block = 40,31,0
+thread block = 41,31,0
+thread block = 42,31,0
+thread block = 0,32,0
+thread block = 1,32,0
+thread block = 2,32,0
+thread block = 3,32,0
+thread block = 4,32,0
+thread block = 5,32,0
+thread block = 6,32,0
+thread block = 7,32,0
+thread block = 8,32,0
+thread block = 9,32,0
+thread block = 10,32,0
+thread block = 11,32,0
+thread block = 12,32,0
+thread block = 13,32,0
+thread block = 14,32,0
+thread block = 15,32,0
+thread block = 16,32,0
+thread block = 17,32,0
+thread block = 18,32,0
+thread block = 19,32,0
+thread block = 20,32,0
+thread block = 21,32,0
+thread block = 22,32,0
+thread block = 23,32,0
+thread block = 24,32,0
+thread block = 25,32,0
+thread block = 26,32,0
+thread block = 27,32,0
+thread block = 28,32,0
+thread block = 29,32,0
+thread block = 30,32,0
+thread block = 31,32,0
+thread block = 32,32,0
+thread block = 33,32,0
+thread block = 34,32,0
+thread block = 35,32,0
+thread block = 36,32,0
+thread block = 37,32,0
+thread block = 38,32,0
+thread block = 39,32,0
+thread block = 40,32,0
+thread block = 41,32,0
+thread block = 42,32,0
+thread block = 0,33,0
+thread block = 1,33,0
+thread block = 2,33,0
+thread block = 3,33,0
+thread block = 4,33,0
+thread block = 5,33,0
+thread block = 6,33,0
+thread block = 7,33,0
+thread block = 8,33,0
+thread block = 9,33,0
+thread block = 10,33,0
+thread block = 11,33,0
+thread block = 12,33,0
+thread block = 13,33,0
+thread block = 14,33,0
+thread block = 15,33,0
+thread block = 16,33,0
+thread block = 17,33,0
+thread block = 18,33,0
+thread block = 19,33,0
+thread block = 20,33,0
+thread block = 21,33,0
+thread block = 22,33,0
+thread block = 23,33,0
+thread block = 24,33,0
+thread block = 25,33,0
+thread block = 26,33,0
+thread block = 27,33,0
+thread block = 28,33,0
+thread block = 29,33,0
+thread block = 30,33,0
+thread block = 31,33,0
+thread block = 32,33,0
+thread block = 33,33,0
+thread block = 34,33,0
+thread block = 35,33,0
+thread block = 36,33,0
+thread block = 37,33,0
+thread block = 38,33,0
+thread block = 39,33,0
+thread block = 40,33,0
+thread block = 41,33,0
+thread block = 42,33,0
+thread block = 0,34,0
+thread block = 1,34,0
+thread block = 2,34,0
+thread block = 3,34,0
+thread block = 4,34,0
+thread block = 5,34,0
+thread block = 6,34,0
+thread block = 7,34,0
+thread block = 8,34,0
+thread block = 9,34,0
+thread block = 10,34,0
+thread block = 11,34,0
+thread block = 12,34,0
+thread block = 13,34,0
+thread block = 14,34,0
+thread block = 15,34,0
+thread block = 16,34,0
+thread block = 17,34,0
+thread block = 18,34,0
+thread block = 19,34,0
+thread block = 20,34,0
+thread block = 21,34,0
+thread block = 22,34,0
+thread block = 23,34,0
+thread block = 24,34,0
+thread block = 25,34,0
+thread block = 26,34,0
+thread block = 27,34,0
+thread block = 28,34,0
+thread block = 29,34,0
+thread block = 30,34,0
+thread block = 31,34,0
+thread block = 32,34,0
+thread block = 33,34,0
+thread block = 34,34,0
+thread block = 35,34,0
+thread block = 36,34,0
+thread block = 37,34,0
+thread block = 38,34,0
+thread block = 39,34,0
+thread block = 40,34,0
+thread block = 41,34,0
+thread block = 42,34,0
+thread block = 0,35,0
+thread block = 1,35,0
+thread block = 2,35,0
+thread block = 3,35,0
+thread block = 4,35,0
+thread block = 5,35,0
+thread block = 6,35,0
+thread block = 7,35,0
+thread block = 8,35,0
+thread block = 9,35,0
+thread block = 10,35,0
+thread block = 11,35,0
+thread block = 12,35,0
+thread block = 13,35,0
+thread block = 14,35,0
+thread block = 15,35,0
+thread block = 16,35,0
+thread block = 17,35,0
+thread block = 18,35,0
+thread block = 19,35,0
+thread block = 20,35,0
+thread block = 21,35,0
+thread block = 22,35,0
+thread block = 23,35,0
+thread block = 24,35,0
+thread block = 25,35,0
+thread block = 26,35,0
+thread block = 27,35,0
+thread block = 28,35,0
+thread block = 29,35,0
+thread block = 30,35,0
+thread block = 31,35,0
+thread block = 32,35,0
+thread block = 33,35,0
+thread block = 34,35,0
+thread block = 35,35,0
+thread block = 36,35,0
+thread block = 37,35,0
+thread block = 38,35,0
+thread block = 39,35,0
+thread block = 40,35,0
+thread block = 41,35,0
+thread block = 42,35,0
+thread block = 0,36,0
+thread block = 1,36,0
+thread block = 2,36,0
+thread block = 3,36,0
+thread block = 4,36,0
+thread block = 5,36,0
+thread block = 6,36,0
+thread block = 7,36,0
+thread block = 8,36,0
+thread block = 9,36,0
+thread block = 10,36,0
+thread block = 11,36,0
+thread block = 12,36,0
+thread block = 13,36,0
+thread block = 14,36,0
+thread block = 15,36,0
+thread block = 16,36,0
+thread block = 17,36,0
+thread block = 18,36,0
+thread block = 19,36,0
+thread block = 20,36,0
+thread block = 21,36,0
+thread block = 22,36,0
+thread block = 23,36,0
+thread block = 24,36,0
+thread block = 25,36,0
+thread block = 26,36,0
+thread block = 27,36,0
+thread block = 28,36,0
+thread block = 29,36,0
+thread block = 30,36,0
+thread block = 31,36,0
+thread block = 32,36,0
+thread block = 33,36,0
+thread block = 34,36,0
+thread block = 35,36,0
+thread block = 36,36,0
+thread block = 37,36,0
+thread block = 38,36,0
+thread block = 39,36,0
+thread block = 40,36,0
+thread block = 41,36,0
+thread block = 42,36,0
+thread block = 0,37,0
+thread block = 1,37,0
+thread block = 2,37,0
+thread block = 3,37,0
+thread block = 4,37,0
+thread block = 5,37,0
+thread block = 6,37,0
+thread block = 7,37,0
+thread block = 8,37,0
+thread block = 9,37,0
+thread block = 10,37,0
+thread block = 11,37,0
+thread block = 12,37,0
+thread block = 13,37,0
+thread block = 14,37,0
+thread block = 15,37,0
+thread block = 16,37,0
+thread block = 17,37,0
+thread block = 18,37,0
+thread block = 19,37,0
+thread block = 20,37,0
+thread block = 21,37,0
+thread block = 22,37,0
+thread block = 23,37,0
+thread block = 24,37,0
+thread block = 25,37,0
+thread block = 26,37,0
+thread block = 27,37,0
+thread block = 28,37,0
+thread block = 29,37,0
+thread block = 30,37,0
+thread block = 31,37,0
+thread block = 32,37,0
+thread block = 33,37,0
+thread block = 34,37,0
+thread block = 35,37,0
+thread block = 36,37,0
+thread block = 37,37,0
+thread block = 38,37,0
+thread block = 39,37,0
+thread block = 40,37,0
+thread block = 41,37,0
+thread block = 42,37,0
+thread block = 0,38,0
+thread block = 1,38,0
+thread block = 2,38,0
+thread block = 3,38,0
+thread block = 4,38,0
+thread block = 5,38,0
+thread block = 6,38,0
+thread block = 7,38,0
+thread block = 8,38,0
+thread block = 9,38,0
+thread block = 10,38,0
+thread block = 11,38,0
+thread block = 12,38,0
+thread block = 13,38,0
+thread block = 14,38,0
+thread block = 15,38,0
+thread block = 16,38,0
+thread block = 17,38,0
+thread block = 18,38,0
+thread block = 19,38,0
+thread block = 20,38,0
+thread block = 21,38,0
+thread block = 22,38,0
+thread block = 23,38,0
+thread block = 24,38,0
+thread block = 25,38,0
+thread block = 26,38,0
+thread block = 27,38,0
+thread block = 28,38,0
+thread block = 29,38,0
+thread block = 30,38,0
+thread block = 31,38,0
+thread block = 32,38,0
+thread block = 33,38,0
+thread block = 34,38,0
+thread block = 35,38,0
+thread block = 36,38,0
+thread block = 37,38,0
+thread block = 38,38,0
+thread block = 39,38,0
+thread block = 40,38,0
+thread block = 41,38,0
+thread block = 42,38,0
+thread block = 0,39,0
+thread block = 1,39,0
+thread block = 2,39,0
+thread block = 3,39,0
+thread block = 4,39,0
+thread block = 5,39,0
+thread block = 6,39,0
+thread block = 7,39,0
+thread block = 8,39,0
+thread block = 9,39,0
+thread block = 10,39,0
+thread block = 11,39,0
+thread block = 12,39,0
+thread block = 13,39,0
+thread block = 14,39,0
+thread block = 15,39,0
+thread block = 16,39,0
+thread block = 17,39,0
+thread block = 18,39,0
+thread block = 19,39,0
+thread block = 20,39,0
+thread block = 21,39,0
+thread block = 22,39,0
+thread block = 23,39,0
+thread block = 24,39,0
+thread block = 25,39,0
+thread block = 26,39,0
+thread block = 27,39,0
+thread block = 28,39,0
+thread block = 29,39,0
+thread block = 30,39,0
+thread block = 31,39,0
+thread block = 32,39,0
+thread block = 33,39,0
+thread block = 34,39,0
+thread block = 35,39,0
+thread block = 36,39,0
+thread block = 37,39,0
+thread block = 38,39,0
+thread block = 39,39,0
+thread block = 40,39,0
+thread block = 41,39,0
+thread block = 42,39,0
+thread block = 0,40,0
+thread block = 1,40,0
+thread block = 2,40,0
+thread block = 3,40,0
+thread block = 4,40,0
+thread block = 5,40,0
+thread block = 6,40,0
+thread block = 7,40,0
+thread block = 8,40,0
+thread block = 9,40,0
+thread block = 10,40,0
+thread block = 11,40,0
+thread block = 12,40,0
+thread block = 13,40,0
+thread block = 14,40,0
+thread block = 15,40,0
+thread block = 16,40,0
+thread block = 17,40,0
+thread block = 18,40,0
+thread block = 19,40,0
+thread block = 20,40,0
+thread block = 21,40,0
+thread block = 22,40,0
+thread block = 23,40,0
+thread block = 24,40,0
+thread block = 25,40,0
+thread block = 26,40,0
+thread block = 27,40,0
+thread block = 28,40,0
+thread block = 29,40,0
+thread block = 30,40,0
+thread block = 31,40,0
+thread block = 32,40,0
+thread block = 33,40,0
+thread block = 34,40,0
+thread block = 35,40,0
+thread block = 36,40,0
+thread block = 37,40,0
+thread block = 38,40,0
+thread block = 39,40,0
+thread block = 40,40,0
+thread block = 41,40,0
+thread block = 42,40,0
+thread block = 0,41,0
+thread block = 1,41,0
+thread block = 2,41,0
+thread block = 3,41,0
+thread block = 4,41,0
+thread block = 5,41,0
+thread block = 6,41,0
+thread block = 7,41,0
+thread block = 8,41,0
+thread block = 9,41,0
+thread block = 10,41,0
+thread block = 11,41,0
+thread block = 12,41,0
+thread block = 13,41,0
+thread block = 14,41,0
+thread block = 15,41,0
+thread block = 16,41,0
+thread block = 17,41,0
+thread block = 18,41,0
+thread block = 19,41,0
+thread block = 20,41,0
+thread block = 21,41,0
+thread block = 22,41,0
+thread block = 23,41,0
+thread block = 24,41,0
+thread block = 25,41,0
+thread block = 26,41,0
+thread block = 27,41,0
+thread block = 28,41,0
+thread block = 29,41,0
+thread block = 30,41,0
+thread block = 31,41,0
+thread block = 32,41,0
+thread block = 33,41,0
+thread block = 34,41,0
+thread block = 35,41,0
+thread block = 36,41,0
+thread block = 37,41,0
+thread block = 38,41,0
+thread block = 39,41,0
+thread block = 40,41,0
+thread block = 41,41,0
+thread block = 42,41,0
+thread block = 0,42,0
+thread block = 1,42,0
+thread block = 2,42,0
+thread block = 3,42,0
+thread block = 4,42,0
+thread block = 5,42,0
+thread block = 6,42,0
+thread block = 7,42,0
+thread block = 8,42,0
+thread block = 9,42,0
+thread block = 10,42,0
+thread block = 11,42,0
+thread block = 12,42,0
+thread block = 13,42,0
+thread block = 14,42,0
+thread block = 15,42,0
+thread block = 16,42,0
+thread block = 17,42,0
+thread block = 18,42,0
+thread block = 19,42,0
+thread block = 20,42,0
+thread block = 21,42,0
+thread block = 22,42,0
+thread block = 23,42,0
+thread block = 24,42,0
+thread block = 25,42,0
+thread block = 26,42,0
+thread block = 27,42,0
+thread block = 28,42,0
+thread block = 29,42,0
+thread block = 30,42,0
+thread block = 31,42,0
+thread block = 32,42,0
+thread block = 33,42,0
+thread block = 34,42,0
+thread block = 35,42,0
+thread block = 36,42,0
+thread block = 37,42,0
+thread block = 38,42,0
+thread block = 39,42,0
+thread block = 40,42,0
+thread block = 41,42,0
+thread block = 42,42,0
+Destroy streams for kernel 1: size 0
+kernel_name = _Z14calculate_tempiPfS_S_iiiiffffff 
+kernel_launch_uid = 1 
+kernel_stream_id = 0
+gpu_sim_cycle = 244122
+gpu_sim_insn = 89394016
+gpu_ipc =     366.1858
+gpu_tot_sim_cycle = 244122
+gpu_tot_sim_insn = 89394016
+gpu_tot_ipc =     366.1858
+gpu_tot_issued_cta = 1849
+gpu_occupancy = 97.6225% 
+gpu_tot_occupancy = 97.6225% 
+max_total_param_size = 0
+gpu_stall_dramfull = 0
+gpu_stall_icnt2sh    = 0
+partiton_level_parallism =       0.8858
+partiton_level_parallism_total  =       0.8858
+partiton_level_parallism_util =       1.5249
+partiton_level_parallism_util_total  =       1.5249
+L2_BW  =      32.0867 GB/Sec
+L2_BW_total  =      32.0867 GB/Sec
+gpu_total_sim_rate=2883677
+
+========= Core cache stats =========
+L1I_cache:
+	L1I_total_cache_accesses = 0
+	L1I_total_cache_misses = 0
+	L1I_total_cache_pending_hits = 0
+	L1I_total_cache_reservation_fails = 0
+L1D_cache:
+	L1D_cache_core[0]: Access = 0, Miss = 0, Miss_rate = -nan, Pending_hits = 0, Reservation_fails = 0
+	L1D_cache_core[1]: Access = 0, Miss = 0, Miss_rate = -nan, Pending_hits = 0, Reservation_fails = 0
+	L1D_cache_core[2]: Access = 0, Miss = 0, Miss_rate = -nan, Pending_hits = 0, Reservation_fails = 0
+	L1D_cache_core[3]: Access = 0, Miss = 0, Miss_rate = -nan, Pending_hits = 0, Reservation_fails = 0
+	L1D_cache_core[4]: Access = 0, Miss = 0, Miss_rate = -nan, Pending_hits = 0, Reservation_fails = 0
+	L1D_cache_core[5]: Access = 0, Miss = 0, Miss_rate = -nan, Pending_hits = 0, Reservation_fails = 0
+	L1D_cache_core[6]: Access = 0, Miss = 0, Miss_rate = -nan, Pending_hits = 0, Reservation_fails = 0
+	L1D_cache_core[7]: Access = 0, Miss = 0, Miss_rate = -nan, Pending_hits = 0, Reservation_fails = 0
+	L1D_cache_core[8]: Access = 0, Miss = 0, Miss_rate = -nan, Pending_hits = 0, Reservation_fails = 0
+	L1D_cache_core[9]: Access = 0, Miss = 0, Miss_rate = -nan, Pending_hits = 0, Reservation_fails = 0
+	L1D_cache_core[10]: Access = 0, Miss = 0, Miss_rate = -nan, Pending_hits = 0, Reservation_fails = 0
+	L1D_cache_core[11]: Access = 0, Miss = 0, Miss_rate = -nan, Pending_hits = 0, Reservation_fails = 0
+	L1D_cache_core[12]: Access = 0, Miss = 0, Miss_rate = -nan, Pending_hits = 0, Reservation_fails = 0
+	L1D_cache_core[13]: Access = 0, Miss = 0, Miss_rate = -nan, Pending_hits = 0, Reservation_fails = 0
+	L1D_cache_core[14]: Access = 0, Miss = 0, Miss_rate = -nan, Pending_hits = 0, Reservation_fails = 0
+	L1D_total_cache_accesses = 0
+	L1D_total_cache_misses = 0
+	L1D_total_cache_pending_hits = 0
+	L1D_total_cache_reservation_fails = 0
+	L1D_cache_data_port_util = 0.000
+	L1D_cache_fill_port_util = 0.000
+L1C_cache:
+	L1C_total_cache_accesses = 0
+	L1C_total_cache_misses = 0
+	L1C_total_cache_pending_hits = 0
+	L1C_total_cache_reservation_fails = 0
+L1T_cache:
+	L1T_total_cache_accesses = 0
+	L1T_total_cache_misses = 0
+	L1T_total_cache_pending_hits = 0
+	L1T_total_cache_reservation_fails = 0
+
+Total_core_cache_stats:
+
+Total_core_cache_fail_stats:
+ctas_completed 1849, Shader 0 warp_id issue ditsribution:
+warp_id:
+0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 
+distro:
+3838, 4515, 4515, 4515, 4515, 4458, 4458, 3838, 3838, 4515, 4515, 4515, 4515, 4458, 4458, 3838, 3654, 4300, 4300, 4300, 4300, 4300, 4300, 3680, 3680, 4300, 4300, 4300, 4300, 4300, 4300, 3680, 3680, 4300, 4300, 4300, 4300, 4300, 4300, 3680, 3680, 4300, 4300, 4300, 4300, 4300, 4300, 3680, 
+gpgpu_n_tot_thrd_icount = 97872128
+gpgpu_n_tot_w_icount = 3058504
+gpgpu_n_stall_shd_mem = 175992
+gpgpu_n_mem_read_local = 0
+gpgpu_n_mem_write_local = 0
+gpgpu_n_mem_read_global = 172720
+gpgpu_n_mem_write_global = 43520
+gpgpu_n_mem_texture = 0
+gpgpu_n_mem_const = 0
+gpgpu_n_load_insn  = 924800
+gpgpu_n_store_insn = 262144
+gpgpu_n_shmem_insn = 6218896
+gpgpu_n_sstarr_insn = 0
+gpgpu_n_tex_insn = 0
+gpgpu_n_const_mem_insn = 0
+gpgpu_n_param_mem_insn = 0
+gpgpu_n_shmem_bkconflict = 0
+gpgpu_n_l1cache_bkconflict = 0
+gpgpu_n_intrawarp_mshr_merge = 0
+gpgpu_n_cmem_portconflict = 0
+gpgpu_stall_shd_mem[c_mem][resource_stall] = 0
+gpgpu_stall_shd_mem[s_mem][bk_conf] = 0
+gpgpu_stall_shd_mem[gl_mem][resource_stall] = 0
+gpgpu_stall_shd_mem[gl_mem][coal_stall] = 175992
+gpgpu_stall_shd_mem[gl_mem][data_port_stall] = 0
+gpu_reg_bank_conflict_stalls = 0
+Warp Occupancy Distribution:
+Stall:11051878	W0_Idle:32874	W0_Scoreboard:163800	W1:0	W2:0	W3:0	W4:20992	W5:0	W6:512	W7:0	W8:32256	W9:2352	W10:0	W11:0	W12:0	W13:2352	W14:96944	W15:0	W16:8704	W17:0	W18:14056	W19:168	W20:2380	W21:0	W22:0	W23:168	W24:333312	W25:0	W26:7168	W27:0	W28:296268	W29:0	W30:0	W31:0	W32:2209740
+single_issue_nums: WS0:736633	WS1:792619	WS2:792619	WS3:736633	
+dual_issue_nums: WS0:0	WS1:0	WS2:0	WS3:0	
+traffic_breakdown_coretomem[GLOBAL_ACC_R] = 1381760 {8:172720,}
+traffic_breakdown_coretomem[GLOBAL_ACC_W] = 1740800 {40:43520,}
+traffic_breakdown_memtocore[GLOBAL_ACC_R] = 6908800 {40:172720,}
+traffic_breakdown_memtocore[GLOBAL_ACC_W] = 348160 {8:43520,}
+maxmflatency = 1246 
+max_icnt2mem_latency = 994 
+maxmrqlatency = 24 
+max_icnt2sh_latency = 316 
+averagemflatency = 182 
+avg_icnt2mem_latency = 20 
+avg_mrq_latency = 0 
+avg_icnt2sh_latency = 4 
+mrq_lat_table:67062 	445 	1483 	229 	34 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	
+dq_lat_table:0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	
+mf_lat_table:0 	0 	0 	0 	0 	0 	96787 	109778 	3847 	4812 	1016 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	
+icnt2mem_lat_table:0 	169487 	29299 	7612 	1840 	340 	598 	1151 	2187 	3726 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	
+icnt2sh_lat_table:0 	172717 	22418 	11222 	5936 	2337 	665 	768 	177 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	
+mf_lat_pw_table:0 	0 	0 	0 	0 	0 	14 	450 	1 	2 	1 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	0 	
+maximum concurrent accesses to same row:
+dram[0]:       192       192       192       192       192       192       192       192       192       192       192       192       192       192       192       192 
+dram[1]:       192       192       192       192       192       192       192       192       192       192       192       192       192       192       192       192 
+dram[2]:        96        96        96        96        96        96        96        96        96        96        96        96        96        96        96        96 
+dram[3]:        96        96        96        96        96        96        96        96        96        96        96        96        96        96        96        96 
+dram[4]:        96        96        96        96        96        96        96        96        96        96        96        96        96        96        96        96 
+dram[5]:        96        96        96        96        96        96        96        96        96        96        96        96        96        96        96        96 
+maximum service time to same row:
+dram[0]:     51204     49971     59969     63052     58710     64240     63267     57376     62696     56993     41346     45104     34838     37585     46261     45257 
+dram[1]:     52657     49189     59950     62975     58769     63197     63914     58409     61577     56462     45064     45008     34116     37167     47024     45260 
+dram[2]:     57619     64314     62697     57971     62455     57972     60107     63627     59642     63595     62842     56664     57348     55562     58909     64645 
+dram[3]:     57616     63658     62115     60425     61698     59003     60167     63891     59739     64284     63273     57449     58346     54339     59206     64273 
+dram[4]:     58710     66157     61985     59788     62665     57863     60721     63929     60050     64968     57761     55490     63292     57507     58327     63086 
+dram[5]:     59231     65489     61691     60467     62651     58271     60138     65973     60567     63822     57959     55132     63383     57712     58965     62334 
+average row accesses per activate:
+dram[0]: 37.357143 31.636364 41.279999 79.769234 51.904762 61.222221 38.218750 52.739132 57.476189 70.941177 42.653847 30.750000 35.200001 75.428574 30.171429 24.558140 
+dram[1]: 34.833332 33.774193 49.238094 54.421051 54.500000 55.099998 43.571430 41.862068 57.476189 80.400002 31.771429 36.799999 31.058823 66.000000 32.000000 39.111111 
+dram[2]: 56.000000 72.000000 31.500000 19.307692 75.428574 75.428574 28.190475 34.823528 96.000000 96.000000 27.100000 26.799999 63.125000 72.000000 28.000000 28.000000 
+dram[3]: 56.000000 72.000000 28.000000 19.307692 75.428574 75.428574 31.105263 28.190475 96.000000 96.000000 38.714287 26.799999 72.000000 72.000000 22.909090 25.200001 
+dram[4]: 45.818180 56.000000 28.000000 17.928572 75.428574 75.428574 31.052631 25.652174 96.000000 96.000000 29.666666 33.375000 63.125000 72.000000 31.500000 28.000000 
+dram[5]: 45.818180 72.000000 31.500000 16.766666 75.428574 75.428574 25.608696 20.379311 96.000000 96.000000 38.142857 24.272728 72.000000 72.000000 25.200001 28.000000 
+average row locality = 69253/1700 = 40.737061
+number of total memory accesses made:
+dram[0]:         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0 
+dram[1]:         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0 
+dram[2]:         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0 
+dram[3]:         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0 
+dram[4]:         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0 
+dram[5]:         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0 
+total accesses: 0
+min_bank_accesses = 0!
+min_chip_accesses = 0!
+number of total read accesses:
+dram[0]:         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0 
+dram[1]:         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0 
+dram[2]:         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0 
+dram[3]:         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0 
+dram[4]:         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0 
+dram[5]:         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0 
+total dram reads = 0
+min_bank_accesses = 0!
+min_chip_accesses = 0!
+number of total write accesses:
+dram[0]:       172       168       144       154       148       140       142       122       110       108       170       182       192       192       192       192 
+dram[1]:       170       174       148       148       148       140       136       124       110       108       176       176       192       192       192       192 
+dram[2]:        48        48        48        44        32        32        32        32         0         0        44        48        50        48        48        48 
+dram[3]:        48        48        48        44        32        32        30        32         0         0        44        48        48        48        48        48 
+dram[4]:        48        48        48        44        32        32        28        28         0         0        44        44        50        48        48        48 
+dram[5]:        48        48        48        46        32        32        26        30         0         0        44        44        48        48        48        48 
+total dram writes = 7434
+min_bank_accesses = 0!
+chip skew: 2528/590 = 4.28
+average mf latency per bank:
+dram[0]:       4412      4707      4081      3784      3878      4332      5757      6804      5295      5513      3204      3056      2737      2813      2731      2806
+dram[1]:       4415      4468      4037      3827      3866      4329      5868      6896      5306      5711      3089      3160      2740      2814      2730      2810
+dram[2]:       7489      7959      5768      6175      8758      8970     13022     13224    none      none        6102      5723      5278      5615      5399      5604
+dram[3]:       7513      7798      5779      6397      8740      8987     13859     12864    none      none        6093      5746      5513      5622      5391      5595
+dram[4]:       7385      7746      6076      6597      9245      8951     13508     14238    none      none        6250      6345      5165      5595      5522      5622
+dram[5]:       7441      7763      6052      6312      9191      9028     14690     13219    none      none        6273      6367      5374      5566      5509      5649
+maximum mf latency per bank:
+dram[0]:       1235      1234      1212      1199      1030      1029      1201      1240       340       295       291       285       285       283       267       285
+dram[1]:       1242      1232      1211       918      1014       968      1229      1234       329      1246       278       286       299       289       280       269
+dram[2]:       1010      1009      1138       294       627       579      1172      1065      1210       350       277       268       260       259       265       272
+dram[3]:       1023      1014      1134      1208       759       617      1199      1019      1211       294       277       266       262       261       269       308
+dram[4]:       1017      1016      1150      1207       615       454      1210       984      1209       289       272       266       257       270       275       259
+dram[5]:       1014      1015      1099      1211       625       560      1210       955      1209       303       270       265       260       283       276       257
+Memory Partition 0: 
+Cache L2_bank_000:
+MSHR contents
+
+Cache L2_bank_001:
+MSHR contents
+
+In Dram Latency Queue (total = 0): 
+DRAM[0]: 16 bks, busW=4 BL=8 CL=12, tRRD=6 tCCD=2, tRCD=12 tRAS=28 tRP=12 tRC=40
+n_cmd=754899 n_nop=735185 n_act=415 n_pre=399 n_ref_event=0 n_req=17640 n_rd=16376 n_rd_L2_A=0 n_write=0 n_wr_bk=2528 bw_util=0.05008
+n_activity=133693 dram_eff=0.2828
+bk0: 960a 752535i bk1: 960a 752214i bk2: 960a 752909i bk3: 960a 752999i bk4: 1016a 753156i bk5: 1032a 753302i bk6: 1152a 752491i bk7: 1152a 753155i bk8: 1152a 753060i bk9: 1152a 753200i bk10: 1024a 752627i bk11: 1016a 752124i bk12: 960a 752646i bk13: 960a 752841i bk14: 960a 752144i bk15: 960a 752094i 
+
+------------------------------------------------------------------------
+
+Row_Buffer_Locality = 0.976474
+Row_Buffer_Locality_read = 0.985772
+Row_Buffer_Locality_write = 0.856013
+Bank_Level_Parallism = 1.171387
+Bank_Level_Parallism_Col = 1.157250
+Bank_Level_Parallism_Ready = 1.019827
+write_to_read_ratio_blp_rw_average = 0.453461
+GrpLevelPara = 1.126981 
+
+BW Util details:
+bwutil = 0.050084 
+total_CMD = 754899 
+util_bw = 37808 
+Wasted_Col = 16895 
+Wasted_Row = 3693 
+Idle = 696503 
+
+BW Util Bottlenecks: 
+RCDc_limit = 2430 
+RCDWRc_limit = 1139 
+WTRc_limit = 2678 
+RTWc_limit = 11602 
+CCDLc_limit = 2585 
+rwq = 0 
+CCDLc_limit_alone = 2025 
+WTRc_limit_alone = 2595 
+RTWc_limit_alone = 11125 
+
+Commands details: 
+total_CMD = 754899 
+n_nop = 735185 
+Read = 16376 
+Write = 0 
+L2_Alloc = 0 
+L2_WB = 2528 
+n_act = 415 
+n_pre = 399 
+n_ref = 0 
+n_req = 17640 
+total_req = 18904 
+
+Dual Bus Interface Util: 
+issued_total_row = 814 
+issued_total_col = 18904 
+Row_Bus_Util =  0.001078 
+CoL_Bus_Util = 0.025042 
+Either_Row_CoL_Bus_Util = 0.026115 
+Issued_on_Two_Bus_Simul_Util = 0.000005 
+issued_two_Eff = 0.000203 
+queue_avg = 0.015565 
+
+
+dram_util_bins: 0 0 0 0 0 0 0 0 0 0
+dram_eff_bins: 0 0 0 0 0 0 0 0 0 0
+mrqq: max=6 avg=0.015565
+Memory Partition 1: 
+Cache L2_bank_002:
+MSHR contents
+
+Cache L2_bank_003:
+MSHR contents
+
+In Dram Latency Queue (total = 0): 
+DRAM[1]: 16 bks, busW=4 BL=8 CL=12, tRRD=6 tCCD=2, tRCD=12 tRAS=28 tRP=12 tRC=40
+n_cmd=754899 n_nop=735201 n_act=409 n_pre=393 n_ref_event=0 n_req=17639 n_rd=16376 n_rd_L2_A=0 n_write=0 n_wr_bk=2526 bw_util=0.05008
+n_activity=133709 dram_eff=0.2827
+bk0: 960a 752395i bk1: 960a 752447i bk2: 960a 753010i bk3: 960a 753082i bk4: 1016a 753155i bk5: 1032a 753057i bk6: 1152a 752813i bk7: 1152a 752869i bk8: 1152a 753332i bk9: 1152a 753293i bk10: 1024a 752479i bk11: 1016a 752326i bk12: 960a 752536i bk13: 960a 752536i bk14: 960a 752408i bk15: 960a 752472i 
+
+------------------------------------------------------------------------
+
+Row_Buffer_Locality = 0.976813
+Row_Buffer_Locality_read = 0.985955
+Row_Buffer_Locality_write = 0.858274
+Bank_Level_Parallism = 1.161431
+Bank_Level_Parallism_Col = 1.149767
+Bank_Level_Parallism_Ready = 1.017609
+write_to_read_ratio_blp_rw_average = 0.447195
+GrpLevelPara = 1.123187 
+
+BW Util details:
+bwutil = 0.050078 
+total_CMD = 754899 
+util_bw = 37804 
+Wasted_Col = 16721 
+Wasted_Row = 3711 
+Idle = 696663 
+
+BW Util Bottlenecks: 
+RCDc_limit = 2432 
+RCDWRc_limit = 1147 
+WTRc_limit = 2587 
+RTWc_limit = 11450 
+CCDLc_limit = 2549 
+rwq = 0 
+CCDLc_limit_alone = 2002 
+WTRc_limit_alone = 2508 
+RTWc_limit_alone = 10982 
+
+Commands details: 
+total_CMD = 754899 
+n_nop = 735201 
+Read = 16376 
+Write = 0 
+L2_Alloc = 0 
+L2_WB = 2526 
+n_act = 409 
+n_pre = 393 
+n_ref = 0 
+n_req = 17639 
+total_req = 18902 
+
+Dual Bus Interface Util: 
+issued_total_row = 802 
+issued_total_col = 18902 
+Row_Bus_Util =  0.001062 
+CoL_Bus_Util = 0.025039 
+Either_Row_CoL_Bus_Util = 0.026094 
+Issued_on_Two_Bus_Simul_Util = 0.000008 
+issued_two_Eff = 0.000305 
+queue_avg = 0.015754 
+
+
+dram_util_bins: 0 0 0 0 0 0 0 0 0 0
+dram_eff_bins: 0 0 0 0 0 0 0 0 0 0
+mrqq: max=6 avg=0.0157544
+Memory Partition 2: 
+Cache L2_bank_004:
+MSHR contents
+
+Cache L2_bank_005:
+MSHR contents
+
+In Dram Latency Queue (total = 0): 
+DRAM[2]: 16 bks, busW=4 BL=8 CL=12, tRRD=6 tCCD=2, tRCD=12 tRAS=28 tRP=12 tRC=40
+n_cmd=754899 n_nop=745687 n_act=213 n_pre=197 n_ref_event=0 n_req=8501 n_rd=8200 n_rd_L2_A=0 n_write=0 n_wr_bk=602 bw_util=0.02332
+n_activity=68066 dram_eff=0.2586
+bk0: 480a 754356i bk1: 480a 754372i bk2: 480a 754231i bk3: 480a 754050i bk4: 512a 754493i bk5: 512a 754512i bk6: 576a 754255i bk7: 576a 754366i bk8: 576a 754686i bk9: 576a 754724i bk10: 520a 754261i bk11: 512a 754254i bk12: 480a 754466i bk13: 480a 754535i bk14: 480a 754201i bk15: 480a 754126i 
+
+------------------------------------------------------------------------
+
+Row_Buffer_Locality = 0.974944
+Row_Buffer_Locality_read = 0.982927
+Row_Buffer_Locality_write = 0.757475
+Bank_Level_Parallism = 1.050762
+Bank_Level_Parallism_Col = 1.041490
+Bank_Level_Parallism_Ready = 1.003408
+write_to_read_ratio_blp_rw_average = 0.232186
+GrpLevelPara = 1.037698 
+
+BW Util details:
+bwutil = 0.023320 
+total_CMD = 754899 
+util_bw = 17604 
+Wasted_Col = 3934 
+Wasted_Row = 2200 
+Idle = 731161 
+
+BW Util Bottlenecks: 
+RCDc_limit = 1596 
+RCDWRc_limit = 492 
+WTRc_limit = 155 
+RTWc_limit = 1503 
+CCDLc_limit = 580 
+rwq = 0 
+CCDLc_limit_alone = 544 
+WTRc_limit_alone = 148 
+RTWc_limit_alone = 1474 
+
+Commands details: 
+total_CMD = 754899 
+n_nop = 745687 
+Read = 8200 
+Write = 0 
+L2_Alloc = 0 
+L2_WB = 602 
+n_act = 213 
+n_pre = 197 
+n_ref = 0 
+n_req = 8501 
+total_req = 8802 
+
+Dual Bus Interface Util: 
+issued_total_row = 410 
+issued_total_col = 8802 
+Row_Bus_Util =  0.000543 
+CoL_Bus_Util = 0.011660 
+Either_Row_CoL_Bus_Util = 0.012203 
+Issued_on_Two_Bus_Simul_Util = 0.000000 
+issued_two_Eff = 0.000000 
+queue_avg = 0.005964 
+
+
+dram_util_bins: 0 0 0 0 0 0 0 0 0 0
+dram_eff_bins: 0 0 0 0 0 0 0 0 0 0
+mrqq: max=4 avg=0.00596371
+Memory Partition 3: 
+Cache L2_bank_006:
+MSHR contents
+
+Cache L2_bank_007:
+MSHR contents
+
+In Dram Latency Queue (total = 0): 
+DRAM[3]: 16 bks, busW=4 BL=8 CL=12, tRRD=6 tCCD=2, tRCD=12 tRAS=28 tRP=12 tRC=40
+n_cmd=754899 n_nop=745685 n_act=216 n_pre=200 n_ref_event=0 n_req=8499 n_rd=8200 n_rd_L2_A=0 n_write=0 n_wr_bk=598 bw_util=0.02331
+n_activity=68686 dram_eff=0.2562
+bk0: 480a 754291i bk1: 480a 754311i bk2: 480a 754284i bk3: 480a 754000i bk4: 512a 754491i bk5: 512a 754422i bk6: 576a 754332i bk7: 576a 754219i bk8: 576a 754672i bk9: 576a 754708i bk10: 520a 754424i bk11: 512a 754237i bk12: 480a 754554i bk13: 480a 754530i bk14: 480a 754077i bk15: 480a 754035i 
+
+------------------------------------------------------------------------
+
+Row_Buffer_Locality = 0.974585
+Row_Buffer_Locality_read = 0.982683
+Row_Buffer_Locality_write = 0.752508
+Bank_Level_Parallism = 1.049901
+Bank_Level_Parallism_Col = 1.042690
+Bank_Level_Parallism_Ready = 1.004318
+write_to_read_ratio_blp_rw_average = 0.239856
+GrpLevelPara = 1.037881 
+
+BW Util details:
+bwutil = 0.023309 
+total_CMD = 754899 
+util_bw = 17596 
+Wasted_Col = 4191 
+Wasted_Row = 2231 
+Idle = 730881 
+
+BW Util Bottlenecks: 
+RCDc_limit = 1615 
+RCDWRc_limit = 504 
+WTRc_limit = 205 
+RTWc_limit = 1620 
+CCDLc_limit = 609 
+rwq = 0 
+CCDLc_limit_alone = 570 
+WTRc_limit_alone = 200 
+RTWc_limit_alone = 1586 
+
+Commands details: 
+total_CMD = 754899 
+n_nop = 745685 
+Read = 8200 
+Write = 0 
+L2_Alloc = 0 
+L2_WB = 598 
+n_act = 216 
+n_pre = 200 
+n_ref = 0 
+n_req = 8499 
+total_req = 8798 
+
+Dual Bus Interface Util: 
+issued_total_row = 416 
+issued_total_col = 8798 
+Row_Bus_Util =  0.000551 
+CoL_Bus_Util = 0.011655 
+Either_Row_CoL_Bus_Util = 0.012206 
+Issued_on_Two_Bus_Simul_Util = 0.000000 
+issued_two_Eff = 0.000000 
+queue_avg = 0.005644 
+
+
+dram_util_bins: 0 0 0 0 0 0 0 0 0 0
+dram_eff_bins: 0 0 0 0 0 0 0 0 0 0
+mrqq: max=4 avg=0.00564446
+Memory Partition 4: 
+Cache L2_bank_008:
+MSHR contents
+
+Cache L2_bank_009:
+MSHR contents
+
+In Dram Latency Queue (total = 0): 
+DRAM[4]: 16 bks, busW=4 BL=8 CL=12, tRRD=6 tCCD=2, tRCD=12 tRAS=28 tRP=12 tRC=40
+n_cmd=754899 n_nop=745699 n_act=217 n_pre=201 n_ref_event=0 n_req=8487 n_rd=8192 n_rd_L2_A=0 n_write=0 n_wr_bk=590 bw_util=0.02327
+n_activity=68187 dram_eff=0.2576
+bk0: 480a 754284i bk1: 480a 754367i bk2: 480a 754233i bk3: 480a 753959i bk4: 512a 754504i bk5: 512a 754525i bk6: 576a 754310i bk7: 576a 754185i bk8: 576a 754700i bk9: 576a 754720i bk10: 512a 754317i bk11: 512a 754349i bk12: 480a 754557i bk13: 480a 754560i bk14: 480a 754195i bk15: 480a 754027i 
+
+------------------------------------------------------------------------
+
+Row_Buffer_Locality = 0.974431
+Row_Buffer_Locality_read = 0.982666
+Row_Buffer_Locality_write = 0.745763
+Bank_Level_Parallism = 1.039535
+Bank_Level_Parallism_Col = 1.035077
+Bank_Level_Parallism_Ready = 1.002619
+write_to_read_ratio_blp_rw_average = 0.236748
+GrpLevelPara = 1.031687 
+
+BW Util details:
+bwutil = 0.023267 
+total_CMD = 754899 
+util_bw = 17564 
+Wasted_Col = 4135 
+Wasted_Row = 2322 
+Idle = 730878 
+
+BW Util Bottlenecks: 
+RCDc_limit = 1653 
+RCDWRc_limit = 494 
+WTRc_limit = 168 
+RTWc_limit = 1563 
+CCDLc_limit = 595 
+rwq = 0 
+CCDLc_limit_alone = 565 
+WTRc_limit_alone = 166 
+RTWc_limit_alone = 1535 
+
+Commands details: 
+total_CMD = 754899 
+n_nop = 745699 
+Read = 8192 
+Write = 0 
+L2_Alloc = 0 
+L2_WB = 590 
+n_act = 217 
+n_pre = 201 
+n_ref = 0 
+n_req = 8487 
+total_req = 8782 
+
+Dual Bus Interface Util: 
+issued_total_row = 418 
+issued_total_col = 8782 
+Row_Bus_Util =  0.000554 
+CoL_Bus_Util = 0.011633 
+Either_Row_CoL_Bus_Util = 0.012187 
+Issued_on_Two_Bus_Simul_Util = 0.000000 
+issued_two_Eff = 0.000000 
+queue_avg = 0.006127 
+
+
+dram_util_bins: 0 0 0 0 0 0 0 0 0 0
+dram_eff_bins: 0 0 0 0 0 0 0 0 0 0
+mrqq: max=5 avg=0.00612665
+Memory Partition 5: 
+Cache L2_bank_010:
+MSHR contents
+
+Cache L2_bank_011:
+MSHR contents
+
+In Dram Latency Queue (total = 0): 
+DRAM[5]: 16 bks, busW=4 BL=8 CL=12, tRRD=6 tCCD=2, tRCD=12 tRAS=28 tRP=12 tRC=40
+n_cmd=754899 n_nop=745673 n_act=230 n_pre=214 n_ref_event=0 n_req=8487 n_rd=8192 n_rd_L2_A=0 n_write=0 n_wr_bk=590 bw_util=0.02327
+n_activity=68487 dram_eff=0.2565
+bk0: 480a 754385i bk1: 480a 754392i bk2: 480a 754300i bk3: 480a 753958i bk4: 512a 754530i bk5: 512a 754497i bk6: 576a 754233i bk7: 576a 754012i bk8: 576a 754658i bk9: 576a 754700i bk10: 512a 754250i bk11: 512a 754112i bk12: 480a 754567i bk13: 480a 754546i bk14: 480a 754132i bk15: 480a 754137i 
+
+------------------------------------------------------------------------
+
+Row_Buffer_Locality = 0.972900
+Row_Buffer_Locality_read = 0.981812
+Row_Buffer_Locality_write = 0.725424
+Bank_Level_Parallism = 1.045121
+Bank_Level_Parallism_Col = 1.036160
+Bank_Level_Parallism_Ready = 1.003643
+write_to_read_ratio_blp_rw_average = 0.231573
+GrpLevelPara = 1.031485 
+
+BW Util details:
+bwutil = 0.023267 
+total_CMD = 754899 
+util_bw = 17564 
+Wasted_Col = 4201 
+Wasted_Row = 2489 
+Idle = 730645 
+
+BW Util Bottlenecks: 
+RCDc_limit = 1713 
+RCDWRc_limit = 552 
+WTRc_limit = 177 
+RTWc_limit = 1449 
+CCDLc_limit = 602 
+rwq = 0 
+CCDLc_limit_alone = 566 
+WTRc_limit_alone = 172 
+RTWc_limit_alone = 1418 
+
+Commands details: 
+total_CMD = 754899 
+n_nop = 745673 
+Read = 8192 
+Write = 0 
+L2_Alloc = 0 
+L2_WB = 590 
+n_act = 230 
+n_pre = 214 
+n_ref = 0 
+n_req = 8487 
+total_req = 8782 
+
+Dual Bus Interface Util: 
+issued_total_row = 444 
+issued_total_col = 8782 
+Row_Bus_Util =  0.000588 
+CoL_Bus_Util = 0.011633 
+Either_Row_CoL_Bus_Util = 0.012222 
+Issued_on_Two_Bus_Simul_Util = 0.000000 
+issued_two_Eff = 0.000000 
+queue_avg = 0.006631 
+
+
+dram_util_bins: 0 0 0 0 0 0 0 0 0 0
+dram_eff_bins: 0 0 0 0 0 0 0 0 0 0
+mrqq: max=5 avg=0.00663135
+
+========= L2 cache stats =========
+L2_cache_bank[0]: Access = 26967, Miss = 12288, Miss_rate = 0.456, Pending_hits = 963, Reservation_fails = 0
+L2_cache_bank[1]: Access = 27121, Miss = 12288, Miss_rate = 0.453, Pending_hits = 1007, Reservation_fails = 0
+L2_cache_bank[2]: Access = 26966, Miss = 12288, Miss_rate = 0.456, Pending_hits = 933, Reservation_fails = 0
+L2_cache_bank[3]: Access = 27119, Miss = 12288, Miss_rate = 0.453, Pending_hits = 1036, Reservation_fails = 0
+L2_cache_bank[4]: Access = 13498, Miss = 6144, Miss_rate = 0.455, Pending_hits = 454, Reservation_fails = 0
+L2_cache_bank[5]: Access = 13568, Miss = 6144, Miss_rate = 0.453, Pending_hits = 543, Reservation_fails = 0
+L2_cache_bank[6]: Access = 13499, Miss = 6144, Miss_rate = 0.455, Pending_hits = 509, Reservation_fails = 0
+L2_cache_bank[7]: Access = 13568, Miss = 6144, Miss_rate = 0.453, Pending_hits = 543, Reservation_fails = 0
+L2_cache_bank[8]: Access = 13385, Miss = 6144, Miss_rate = 0.459, Pending_hits = 486, Reservation_fails = 0
+L2_cache_bank[9]: Access = 13582, Miss = 6144, Miss_rate = 0.452, Pending_hits = 500, Reservation_fails = 0
+L2_cache_bank[10]: Access = 13383, Miss = 6144, Miss_rate = 0.459, Pending_hits = 492, Reservation_fails = 0
+L2_cache_bank[11]: Access = 13584, Miss = 6144, Miss_rate = 0.452, Pending_hits = 514, Reservation_fails = 0
+L2_total_cache_accesses = 216240
+L2_total_cache_misses = 98304
+L2_total_cache_miss_rate = 0.4546
+L2_total_cache_pending_hits = 7980
+L2_total_cache_reservation_fails = 0
+L2_total_cache_breakdown:
+	L2_cache_stats_breakdown[GLOBAL_ACC_R][HIT] = 99204
+	L2_cache_stats_breakdown[GLOBAL_ACC_R][HIT_RESERVED] = 7980
+	L2_cache_stats_breakdown[GLOBAL_ACC_R][MISS] = 16384
+	L2_cache_stats_breakdown[GLOBAL_ACC_R][RESERVATION_FAIL] = 0
+	L2_cache_stats_breakdown[GLOBAL_ACC_R][SECTOR_MISS] = 49152
+	L2_cache_stats_breakdown[GLOBAL_ACC_R][MSHR_HIT] = 7980
+	L2_cache_stats_breakdown[LOCAL_ACC_R][HIT] = 0
+	L2_cache_stats_breakdown[LOCAL_ACC_R][HIT_RESERVED] = 0
+	L2_cache_stats_breakdown[LOCAL_ACC_R][MISS] = 0
+	L2_cache_stats_breakdown[LOCAL_ACC_R][RESERVATION_FAIL] = 0
+	L2_cache_stats_breakdown[LOCAL_ACC_R][SECTOR_MISS] = 0
+	L2_cache_stats_breakdown[LOCAL_ACC_R][MSHR_HIT] = 0
+	L2_cache_stats_breakdown[CONST_ACC_R][HIT] = 0
+	L2_cache_stats_breakdown[CONST_ACC_R][HIT_RESERVED] = 0
+	L2_cache_stats_breakdown[CONST_ACC_R][MISS] = 0
+	L2_cache_stats_breakdown[CONST_ACC_R][RESERVATION_FAIL] = 0
+	L2_cache_stats_breakdown[CONST_ACC_R][SECTOR_MISS] = 0
+	L2_cache_stats_breakdown[CONST_ACC_R][MSHR_HIT] = 0
+	L2_cache_stats_breakdown[TEXTURE_ACC_R][HIT] = 0
+	L2_cache_stats_breakdown[TEXTURE_ACC_R][HIT_RESERVED] = 0
+	L2_cache_stats_breakdown[TEXTURE_ACC_R][MISS] = 0
+	L2_cache_stats_breakdown[TEXTURE_ACC_R][RESERVATION_FAIL] = 0
+	L2_cache_stats_breakdown[TEXTURE_ACC_R][SECTOR_MISS] = 0
+	L2_cache_stats_breakdown[TEXTURE_ACC_R][MSHR_HIT] = 0
+	L2_cache_stats_breakdown[GLOBAL_ACC_W][HIT] = 10752
+	L2_cache_stats_breakdown[GLOBAL_ACC_W][HIT_RESERVED] = 0
+	L2_cache_stats_breakdown[GLOBAL_ACC_W][MISS] = 8192
+	L2_cache_stats_breakdown[GLOBAL_ACC_W][RESERVATION_FAIL] = 0
+	L2_cache_stats_breakdown[GLOBAL_ACC_W][SECTOR_MISS] = 24576
+	L2_cache_stats_breakdown[GLOBAL_ACC_W][MSHR_HIT] = 0
+	L2_cache_stats_breakdown[LOCAL_ACC_W][HIT] = 0
+	L2_cache_stats_breakdown[LOCAL_ACC_W][HIT_RESERVED] = 0
+	L2_cache_stats_breakdown[LOCAL_ACC_W][MISS] = 0
+	L2_cache_stats_breakdown[LOCAL_ACC_W][RESERVATION_FAIL] = 0
+	L2_cache_stats_breakdown[LOCAL_ACC_W][SECTOR_MISS] = 0
+	L2_cache_stats_breakdown[LOCAL_ACC_W][MSHR_HIT] = 0
+	L2_cache_stats_breakdown[L1_WRBK_ACC][HIT] = 0
+	L2_cache_stats_breakdown[L1_WRBK_ACC][HIT_RESERVED] = 0
+	L2_cache_stats_breakdown[L1_WRBK_ACC][MISS] = 0
+	L2_cache_stats_breakdown[L1_WRBK_ACC][RESERVATION_FAIL] = 0
+	L2_cache_stats_breakdown[L1_WRBK_ACC][SECTOR_MISS] = 0
+	L2_cache_stats_breakdown[L1_WRBK_ACC][MSHR_HIT] = 0
+	L2_cache_stats_breakdown[L2_WRBK_ACC][HIT] = 0
+	L2_cache_stats_breakdown[L2_WRBK_ACC][HIT_RESERVED] = 0
+	L2_cache_stats_breakdown[L2_WRBK_ACC][MISS] = 0
+	L2_cache_stats_breakdown[L2_WRBK_ACC][RESERVATION_FAIL] = 0
+	L2_cache_stats_breakdown[L2_WRBK_ACC][SECTOR_MISS] = 0
+	L2_cache_stats_breakdown[L2_WRBK_ACC][MSHR_HIT] = 0
+	L2_cache_stats_breakdown[INST_ACC_R][HIT] = 0
+	L2_cache_stats_breakdown[INST_ACC_R][HIT_RESERVED] = 0
+	L2_cache_stats_breakdown[INST_ACC_R][MISS] = 0
+	L2_cache_stats_breakdown[INST_ACC_R][RESERVATION_FAIL] = 0
+	L2_cache_stats_breakdown[INST_ACC_R][SECTOR_MISS] = 0
+	L2_cache_stats_breakdown[INST_ACC_R][MSHR_HIT] = 0
+	L2_cache_stats_breakdown[L1_WR_ALLOC_R][HIT] = 0
+	L2_cache_stats_breakdown[L1_WR_ALLOC_R][HIT_RESERVED] = 0
+	L2_cache_stats_breakdown[L1_WR_ALLOC_R][MISS] = 0
+	L2_cache_stats_breakdown[L1_WR_ALLOC_R][RESERVATION_FAIL] = 0
+	L2_cache_stats_breakdown[L1_WR_ALLOC_R][SECTOR_MISS] = 0
+	L2_cache_stats_breakdown[L1_WR_ALLOC_R][MSHR_HIT] = 0
+	L2_cache_stats_breakdown[L2_WR_ALLOC_R][HIT] = 0
+	L2_cache_stats_breakdown[L2_WR_ALLOC_R][HIT_RESERVED] = 0
+	L2_cache_stats_breakdown[L2_WR_ALLOC_R][MISS] = 0
+	L2_cache_stats_breakdown[L2_WR_ALLOC_R][RESERVATION_FAIL] = 0
+	L2_cache_stats_breakdown[L2_WR_ALLOC_R][SECTOR_MISS] = 0
+	L2_cache_stats_breakdown[L2_WR_ALLOC_R][MSHR_HIT] = 0
+	L2_cache_stats_breakdown[GLOBAL_ACC_R][TOTAL_ACCESS] = 172720
+	L2_cache_stats_breakdown[GLOBAL_ACC_W][TOTAL_ACCESS] = 43520
+L2_total_cache_reservation_fail_breakdown:
+L2_cache_data_port_util = 0.039
+L2_cache_fill_port_util = 0.022
+
+icnt_total_pkts_mem_to_simt=216240
+icnt_total_pkts_simt_to_mem=216240
+LD_mem_lat_dist  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ST_mem_lat_dist  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+----------------------------Interconnect-DETAILS--------------------------------
+Req_Network_injected_packets_num = 216240
+Req_Network_cycles = 244122
+Req_Network_injected_packets_per_cycle =       0.8858 
+Req_Network_conflicts_per_cycle =       0.1328
+Req_Network_conflicts_per_cycle_util =       0.2285
+Req_Bank_Level_Parallism =       1.5249
+Req_Network_in_buffer_full_per_cycle =       0.0000
+Req_Network_in_buffer_avg_util =       1.0941
+Req_Network_out_buffer_full_per_cycle =       0.0000
+Req_Network_out_buffer_avg_util =       0.0738
+
+Reply_Network_injected_packets_num = 216240
+Reply_Network_cycles = 244122
+Reply_Network_injected_packets_per_cycle =        0.8858
+Reply_Network_conflicts_per_cycle =        0.1863
+Reply_Network_conflicts_per_cycle_util =       0.3236
+Reply_Bank_Level_Parallism =       1.5385
+Reply_Network_in_buffer_full_per_cycle =       0.0000
+Reply_Network_in_buffer_avg_util =       0.1504
+Reply_Network_out_buffer_full_per_cycle =       0.0000
+Reply_Network_out_buffer_avg_util =       0.0594
+----------------------------END-of-Interconnect-DETAILS-------------------------
+
+
+gpgpu_simulation_time = 0 days, 0 hrs, 0 min, 31 sec (31 sec)
+gpgpu_simulation_rate = 2883677 (inst/sec)
+gpgpu_simulation_rate = 7874 (cycle/sec)
+gpgpu_silicon_slowdown = 143764x
+GPGPU-Sim: *** simulation thread exiting ***
+GPGPU-Sim: *** exit detected ***
